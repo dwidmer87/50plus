@@ -2,18 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Protected Page</title>
+    <title>Home</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <h1>Protected Page</h1>
+    <h1>Grüezi, <span id="firstName">Lade...</span> <span id="lastName">Lade...</span>!</h1>
 
-    <!-- This is where we'll dynamically show the protected content -->
+    <div>Begleitung anfragen</div>
+    <div>Begleitung anbieten</div>
+
+    <h1>Ihre letzten Aktivitäten</h1>
+
     <div id="protectedContent"></div>
+
+    <footer></footer>
 
     <button id="logoutBtn">Logout</button>
 
-    <script src="js/protected.js"></script>
+    <script type="module" src="js/user-profile.js"></script>
     <script src="js/logout.js"></script>
+    <script src="js/footer.js"></script>
   </body>
 </html>

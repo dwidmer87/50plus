@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Protected Page</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <h1>Profilübersicht</h1>
+
+    <!-- This is where we'll dynamically show the protected content -->
+    <section id="userProfile">
+      <h2>Ihr Profil</h2>
+      <p id="userFirstName">Vorname: <span id="firstName">Lade...</span></p>
+      <p id="userLastName">Nachname: <span id="lastName">Lade...</span></p>
+    </section>
+
+    <button id="logoutBtn">Logout</button>
+
+    <script type="module" src="js/user-profile.js"></script>
+    <script src="js/logout.js"></script>
+  </body>
+</html>
