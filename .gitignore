@@ -1,3 +1,4 @@
+.DS_Store
 config.php
-credentials.md
+.env
 .vscode
