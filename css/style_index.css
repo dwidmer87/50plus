@@ -1,0 +1,44 @@
+body {
+    background-color: var(--title-blue);
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+#logo_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    width: 100vw;
+    background-color: var(--bg-grey);
+    border-radius: 0 0 50vw 50vw;
+    margin: 0;
+}
+
+#logo_container #hands_logo{
+    width: auto;
+    height: 40vh;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 600px) {
+    #logo_container #hands_logo{
+        width: 90vw;
+        height: auto;
+    }
+}
+
+#logo_container #text_logo{
+    width: auto;
+    height: 10vh;
+    margin: 0 auto;
+}
+
+#claim{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10vh auto;
+    width: 100vw;
+}
