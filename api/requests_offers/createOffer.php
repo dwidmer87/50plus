@@ -40,6 +40,7 @@ if ($input['compensation_required']) {
     }
 }
 
+// Eintrag in die Datenbank einfügen
 try {
     $stmt = $pdo->prepare("
         INSERT INTO requests_offers (
