@@ -81,7 +81,7 @@ function findMatchingOffers(requests, offers) {
 
 
 //____________________________________________________________
-// Match direkt in Datenbank speichern
+// Match direkt in Datenbank speichern und Match-ID zurückgeben
 //____________________________________________________________
 
 async function createMatchInDB(match) {
@@ -109,6 +109,45 @@ async function createMatchInDB(match) {
     return false;
   }
 }
+
+//____________________________________________________________
+// Match-ID auslesen
+//____________________________________________________________
+
+async function fetchMatchId(match) {
+  const payload = {
+    id_protected: match.request.id_protected,
+    id_protector: match.offer.id_protector,
+    id_request: match.request.id
+  };
+
+  console.log("📤 Gesendeter Payload:", payload);
+
+  try {
+    const response = await fetch('/api/matches_activities/readMatchId.php', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    console.log("📥 Serverantwort:", result);
+
+    if (result.success && result.match_id) {
+      console.log("✅ Erfolgreich Match-ID abgerufen:", result.match_id);
+      return result.match_id;
+    } else {
+      console.warn("⚠️ Match-ID konnte nicht ausgelesen werden");
+      return null;
+    }
+  } catch (error) {
+    console.error("❌ Fehler beim Abrufen der Match-ID:", error);
+    return null;
+  }
+}
+
 //____________________________________________________________
 // UI anzeigen
 //____________________________________________________________
@@ -143,6 +182,48 @@ function renderOffers(matches) {
 
     const callBtn = document.createElement("button");
     callBtn.textContent = "ANRUF";
+
+    callBtn.addEventListener("click", async () => {
+  const matchId = await fetchMatchId(match);
+  if (!matchId) {
+    alert("Match-ID konnte nicht geladen werden");
+    return;
+  }
+
+  // Pop-up mit Anrufbutton und Antwortoptionen
+  Swal.fire({
+    title: 'Wird XY begleiten?',
+    html: `
+      <a href="tel:+41791234567" class="swal2-confirm swal2-styled" style="margin-bottom: 1em;">📞 Jetzt anrufen</a><br>
+      <button id="btn-yes" class="swal2-confirm swal2-styled">Ja</button>
+      <button id="btn-no" class="swal2-cancel swal2-styled">Nein</button>
+      <button id="btn-unclear" class="swal2-deny swal2-styled">Unklar</button>
+    `,
+    showConfirmButton: false,
+    didOpen: () => {
+      document.getElementById("btn-yes").addEventListener("click", () => sendAnswer("phone_yes", matchId));
+      document.getElementById("btn-no").addEventListener("click", () => sendAnswer("phone_no", matchId));
+      document.getElementById("btn-unclear").addEventListener("click", () => sendAnswer("phone_unclear", matchId));
+    }
+  });
+});
+
+// Antwort senden
+async function sendAnswer(answerCode, matchId) {
+  const res = await fetch("/api/matches_activities/updateMatch.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ matchId, answer: answerCode })
+  });
+
+  const result = await res.json();
+  if (result.error) {
+    Swal.showValidationMessage("Fehler beim Speichern");
+  } else {
+    Swal.fire("Antwort gespeichert", "", "success");
+  }
+}
+
 
     const msgBtn = document.createElement("button");
     msgBtn.textContent = "NACHRICHT";
@@ -217,3 +298,67 @@ function formatDateTime(dateStr) {
   // Angebote anzeigen
   renderOffers(matches);
 })();
+
+    // 1. Eventlistener für ANRUF-Button
+    callBtn.addEventListener("click", async () => {
+      // 2. Telefonfunktion starten (einfacher tel:-Link für mobile)
+      window.location.href = `tel:${offer.phone || ''}`; // Muss später sinnvoll ergänzt werden
+
+      // 3. Match-ID abrufen
+      const matchId = await fetchMatchId(match);
+      if (!matchId) {
+        alert("Fehler beim Abrufen der Match-ID");
+        return;
+      }
+
+      // 4. Popup anzeigen – Platzhaltername XY
+      const popup = document.createElement("div");
+      popup.classList.add("popup");
+      popup.innerHTML = `
+        <div class="popup-content">
+          <p>Wird dich XY begleiten?</p>
+          <button data-answer="phone_yes">Ja</button>
+          <button data-answer="no">Nein</button>
+          <button data-answer="phone_unclear">Unklar</button>
+          <button id="popupClose">Schliessen</button>
+        </div>
+      `;
+      document.body.appendChild(popup);
+
+      // 5. Antwort-Buttons behandeln
+      popup.querySelectorAll("button[data-answer]").forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const answer = btn.getAttribute("data-answer");
+
+          // 6. Antwort an updateMatch.php senden
+          try {
+            const res = await fetch("/api/matches_activities/updateMatch.php", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ matchId, answer })
+            });
+
+            const result = await res.json();
+            console.log("Antwort gespeichert:", result);
+
+            if (result.success) {
+              alert("Antwort erfolgreich gespeichert");
+            } else {
+              alert("Fehler beim Speichern der Antwort");
+            }
+          } catch (err) {
+            console.error("Netzwerkfehler:", err);
+            alert("Fehler beim Senden der Antwort");
+          }
+
+          popup.remove();
+        });
+      });
+
+      // Optionaler Close-Button
+      popup.querySelector("#popupClose").addEventListener("click", () => {
+        popup.remove();
+      });
+    });
