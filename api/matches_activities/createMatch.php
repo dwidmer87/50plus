@@ -1,20 +1,4 @@
 <?php
-$rawInput = file_get_contents("php://input");
-file_put_contents("debug_input.json", $rawInput); // schreibt den Body in eine Datei
-
-$input = json_decode($rawInput, true);
-
-if (!$input) {
-    http_response_code(400);
-    echo json_encode([
-        "error" => "JSON-Body ungültig oder leer",
-        "raw_input" => $rawInput,
-        "json_last_error" => json_last_error(),
-        "json_error_msg" => json_last_error_msg()
-    ]);
-    exit;
-}
-
 session_start();
 header('Content-Type: application/json');
 
