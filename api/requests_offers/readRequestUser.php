@@ -16,7 +16,7 @@ $input = json_decode(file_get_contents("php://input"), true);
 $userId = $_SESSION['user_id'];
 
 $stmt = $pdo->prepare("
-    SELECT date_time_start, date_time_end, transport, compensation_accepted
+    SELECT id, id_protected, date_time_start, date_time_end, transport, compensation_accepted
     FROM requests_offers
     WHERE id_protected = :id
 ");
