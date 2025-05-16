@@ -13,6 +13,7 @@ require_once '../../system/config.php';
 try {
     $stmt = $pdo->prepare("
         SELECT 
+            ro.id,
             ro.id_protected,
             ro.date_time_start,
             ro.date_time_end,
