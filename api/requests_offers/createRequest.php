@@ -29,6 +29,8 @@ foreach ($required as $field) {
     }
 }
 
+// Eintrag in die Datenbank einfügen
+
 try {
     $stmt = $pdo->prepare("
         INSERT INTO requests_offers (
