@@ -44,6 +44,7 @@ function findMatchingOffers(requests, offers) {
   const matched = [];
 
   for (const request of requests) {
+
     const requestStart = new Date(request.date_time_start);
     const requestEnd = new Date(request.date_time_end);
 
@@ -78,24 +79,43 @@ function findMatchingOffers(requests, offers) {
   return matched;
 }
 
+
 //____________________________________________________________
-// Hauptfunktion
+// Match direkt in Datenbank speichern
 //____________________________________________________________
 
-(async function () {
-  const dataRequestUser = await loadRequests();
-  const dataOffersAll = await loadOffers();
+async function createMatchInDB(match) {
+  const payload = {
+    id_protected: match.request.id_protected,
+    id_protector: match.offer.id_protector,
+    id_request: match.request.id
+  };
 
-  console.log("Anfragen des Users:", dataRequestUser);
-  console.log("Alle offenen Angebote:", dataOffersAll);
+  console.log("Payload für DB:", payload);
 
-  const matches = findMatchingOffers(dataRequestUser, dataOffersAll);
+  try {
+    const response = await fetch('/api/matches_activities/createMatch.php', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
 
-  console.log("Gefundene Matches:", matches);
+    const result = await response.json();
+    return result.success === true;
+  } catch (error) {
+    console.error("Fehler beim Speichern des Matches:", error);
+    return false;
+  }
+}
+//____________________________________________________________
+// UI anzeigen
+//____________________________________________________________
 
 function renderOffers(matches) {
   const container = document.getElementById("avilableOffers");
-  container.innerHTML = ""; // Leeren vor dem Rendern
+  container.innerHTML = "";
 
   matches.forEach(match => {
     const offer = match.offer;
@@ -108,7 +128,7 @@ function renderOffers(matches) {
 
     const availableLabelStart = document.createElement("p");
     availableLabelStart.innerHTML = `<strong>verfügbar ab:</strong> ${formatDateTime(offer.date_time_start)}`;
-    
+
     const availableLabelEnd = document.createElement("p");
     availableLabelEnd.innerHTML = `<strong>verfügbar bis:</strong> ${formatDateTime(offer.date_time_end)}`;
 
@@ -143,35 +163,57 @@ function renderOffers(matches) {
   });
 }
 
+//____________________________________________________________
 // Datum formatieren
+//____________________________________________________________
+
 function formatDateTime(dateStr) {
-    if (!dateStr) return "Unbekannt";
+  if (!dateStr) return "Unbekannt";
 
-    const isoStr = dateStr.replace(" ", "T"); // SQL -> ISO
-    const dt = new Date(isoStr);
+  const isoStr = dateStr.replace(" ", "T");
+  const dt = new Date(isoStr);
 
-    if (isNaN(dt.getTime())) return "Unbekannt";
+  if (isNaN(dt.getTime())) return "Unbekannt";
 
-    const now = new Date();
-    const isToday = dt.toDateString() === now.toDateString();
-    const isTomorrow = dt.toDateString() === new Date(now.getTime() + 86400000).toDateString();
+  const now = new Date();
+  const isToday = dt.toDateString() === now.toDateString();
+  const isTomorrow = dt.toDateString() === new Date(now.getTime() + 86400000).toDateString();
 
-    const time = dt.toLocaleTimeString("de-CH", { hour: '2-digit', minute: '2-digit' });
+  const time = dt.toLocaleTimeString("de-CH", { hour: '2-digit', minute: '2-digit' });
+  const day = dt.getDate().toString().padStart(2, '0');
+  const month = (dt.getMonth() + 1).toString().padStart(2, '0');
+  const year = dt.getFullYear();
+  const weekday = dt.toLocaleDateString("de-CH", { weekday: 'long' });
 
-    const day = dt.getDate().toString().padStart(2, '0');
-    const month = (dt.getMonth() + 1).toString().padStart(2, '0');
-    const year = dt.getFullYear();
-
-    const weekday = dt.toLocaleDateString("de-CH", { weekday: 'long' });
-
-    if (isToday) return `heute, ${time} Uhr`;
-    if (isTomorrow) return `morgen, ${time} Uhr`;
-    return `${weekday}, ${day}.${month}.${year} ${time}`;
+  if (isToday) return `heute, ${time} Uhr`;
+  if (isTomorrow) return `morgen, ${time} Uhr`;
+  return `${weekday}, ${day}.${month}.${year} ${time}`;
 }
 
-// Matches anzeigen
-renderOffers(matches);
+//____________________________________________________________
+// Hauptfunktion
+//____________________________________________________________
 
-}
+(async function () {
+  const dataRequestUser = await loadRequests();
+  const dataOffersAll = await loadOffers();
 
-)();
+  console.log("Anfragen des Users:", dataRequestUser);
+  console.log("Alle offenen Angebote:", dataOffersAll);
+
+  const matches = findMatchingOffers(dataRequestUser, dataOffersAll);
+  console.log("Gefundene Matches:", matches);
+
+  // Automatisch alle Matches in DB speichern
+  for (const match of matches) {
+    const success = await createMatchInDB(match);
+    if (success) {
+      console.log("Match gespeichert:", match);
+    } else {
+      console.warn("Fehler beim Speichern:", match);
+    }
+  }
+
+  // Angebote anzeigen
+  renderOffers(matches);
+})();
