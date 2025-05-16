@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Begleitung anbieten</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body class="nonscroll_body">
+    <div class="page_title">
+        <h3>Sie bieten Begleitung an.</h3>
+    </div>
+    
+    <form id="offerForm">
+        <div class="form_container">
+            <div>
+                <label for="date_start_offer">verfügbar ab:</label>
+                <input type="datetime-local" id="date_start_offer" required>
+            </div>
+            <div>
+                <label for="date_end_offer">verfügbar bis:</label>
+                <input type="datetime-local" id="date_end_offer" required>
+            </div>
+            <div>
+                <input type="text" id="location_offer" placeholder="Mein Standort:" required>
+            </div>
+            <div>
+                <p>verfügbare Verkehrsmittel:</p>
+                <div class="form_checkbox_transport">
+                    <label><input type="checkbox" name="transport_offer" value="on_foot">zu Fuss</label>
+                    <label><input type="checkbox" name="transport_offer" value="bicycle">Velo</label>
+                    <label><input type="checkbox" name="transport_offer" value="train">Zugfahrt</label>
+                    <label><input type="checkbox" name="transport_offer" value="car">Auto</label>
+                </div>
+            </div>
+            <div>
+                <select id="compensation_required" required>
+                    <option value="" disabled selected>kostenpflichtiger Service?</option>
+                    <option value="compensation_required_yes">Ja</option>
+                    <option value="compensation_required_no">Nein</option>
+                </select>
+            </div>
+            <div id="compensation_details_container" style="display: none;">
+                <textarea id="compensation_description" placeholder="Information zu den Kosten" rows="4" cols="50"></textarea>
+            </div>
+        </div>
+        <button id="btnOffer" type="submit">Begleitung anbieten &#10132</button>
+    </form>
+    <footer></footer>
+    <script src="js/footer.js"></script>
+    <script src="js/offer.js"></script>
+</body>

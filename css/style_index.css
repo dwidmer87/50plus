@@ -39,6 +39,43 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 10vh auto;
+    margin: 10vh auto 0 auto;
     width: 100vw;
+}
+
+#button_start {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 330px;
+    height: 50px;
+    background-color: var(--title-blue);
+    border: solid 2px var(--orange);
+    border-radius: 50px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#button_start:hover {
+    background-color: var(--orange);
+}
+
+#button_start a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: var(--orange);
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+#button_start:hover a {
+    color: var(--title-blue);
 }

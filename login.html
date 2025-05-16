@@ -1,34 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="de">
+<head>
     <meta charset="UTF-8" />
-    <title>Login</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <h1>Login</h1>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style_unverified.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+ 
+<body>
+    <div id="welcome_empty">
+      </div>
+    
+    <div class="title_container">
+      <h2>Willkommen!</h2>
+      <p>Geben Sie Ihre Login-Daten ein.</p>
+    </div>
 
     <form id="loginForm">
       <div>
-        <label>Email</label>
-        <input type="email" id="email" required />
+        <input type="email" id="email" placeholder="E-Mail-Adresse" required />
       </div>
       <div>
-        <label>Password</label>
-        <input type="password" id="password" required />
+        <input type="password" id="password" placeholder="Passwort" required />
       </div>
-      <button type="submit">Login</button>
+      <button type="submit">Login &#10132</button>
     </form>
+  
 
-    <footer>
-      <div class="footer">
-        <p>&copy; 2023 IM4 Demo Page</p>
-        <p>All rights reserved.</p>
-      </div>
-    </footer>
+    <div class="redirect_registration">
+     <p>Noch kein Konto?</p>
+     <a href="register.html">Jetzt registrieren!</a>
+    </div>
 
-    <p>Don’t have an account? <a href="register.html">Register here</a>.</p>
-
+    <script src="js/logout.js"></script>
+    <script src="js/footer.js"></script>
     <script src="js/login.js"></script>
   </body>
 </html>

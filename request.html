@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Begeleitung anfragen</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body class="nonscroll_body">
+    <div class="page_title">
+        <h3>Sie wünschen eine Begleitung.</h3>
+    </div>
+    <form id="requestForm">
+        <div class="form_container">
+            <div>
+                <label for="date_start_request">Wann?</label>
+                <input type="datetime-local" id="date_start_request" required>
+            </div>
+            <div>
+                <select id="date_end_request" required>
+                    <option value="" disabled selected>Wie lange?</option>
+                    <option value="PT15M">15 Minuten oder weniger</option>
+                    <option value="PT30M">30 Minuten</option>
+                    <option value="PT45M">45 Minuten</option>
+                    <option value="PT2H">1 Stunde oder länger</option>
+                </select>
+            </div>
+            <div>
+                <input type="text" id="location_pickup_request" placeholder="Hier abholen:" required>
+            </div>
+            <div>
+                <input type="text" id="location_destination_request" placeholder="Hierhin begleiten:" required>
+            </div>
+            <div>
+                <select id="transport_request" required>
+                    <option value="" disabled selected>Benötigtes Verkehrsmittel:</option>
+                    <option value="on_foot">zu Fuss</option>
+                    <option value="bicycle">Velo</option>
+                    <option value="train">Zugfahrt</option>
+                    <option value="car">Auto</option>
+                </select>
+            </div>
+            <div>
+                <select id="compensation_accepted" required>
+                    <option value="" disabled selected>Zahlungsbereitschaft?</option>
+                    <option value="compensation_accepted_yes">Ja</option>
+                    <option value="compensation_accepted_no">Nein</option>
+                </select>
+            </div>
+        </div>
+    </form>
+    </div>
+<button id="btnRequest" type="submit">Begleitung suchen &#10132</button>
+    <footer></footer>
+    <script src="js/footer.js"></script>
+    <script src="js/request.js"></script>
+</body>
