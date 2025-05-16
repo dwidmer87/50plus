@@ -79,19 +79,38 @@ function findMatchingRequests(offers, requests) {
 }
 
 //____________________________________________________________
-// Hauptfunktion
+// Match direkt in Datenbank speichern
 //____________________________________________________________
 
-(async function () {
-  const dataOfferUser = await loadOffers();
-  const dataRequestsAll = await loadRequests();
+async function createMatchInDB(match) {
+  const payload = {
+    id_protected: match.request.id_protected,
+    id_protector: match.offer.id_protector,
+    id_request: match.request.id
+  };
 
-  console.log("Angebote des Users:", dataOfferUser);
-  console.log("Alle offenen Anfragen:", dataRequestsAll);
+  console.log("Payload für DB:", payload);
 
-  const matches = findMatchingRequests(dataOfferUser, dataRequestsAll);
+  try {
+    const response = await fetch('/api/matches_activities/createMatch.php', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
 
-  console.log("Gefundene Matches:", matches);
+    const result = await response.json();
+    return result.success === true;
+  } catch (error) {
+    console.error("Fehler beim Speichern des Matches:", error);
+    return false;
+  }
+}
+
+//____________________________________________________________
+// UI anzeigen
+//____________________________________________________________
 
 function renderRequests(matches) {
   const container = document.getElementById("avilableRequests");
@@ -207,10 +226,30 @@ function formatTransport(transportStr) {
 
     return transportArray.map(t => transportMap[t] || t).join(', ');
 }
+//____________________________________________________________
+// Hauptfunktion
+//____________________________________________________________
 
-// Matches anzeigen
-renderRequests(matches);
+(async function () {
+  const dataOfferUser = await loadOffers();
+  const dataRequestsAll = await loadRequests();
 
-}
+  console.log("Angebote des Users:", dataOfferUser);
+  console.log("Alle offenen Anfragen:", dataRequestsAll);
 
-)();
+  const matches = findMatchingRequests(dataOfferUser, dataRequestsAll);
+  console.log("Gefundene Matches:", matches);
+
+  // Automatisch alle Matches in DB speichern
+  for (const match of matches) {
+    const success = await createMatchInDB(match);
+    if (success) {
+      console.log("Match gespeichert:", match);
+    } else {
+      console.warn("Fehler beim Speichern:", match);
+    }
+  }
+
+  // Anfragen anzeigen
+  renderRequests(matches);
+})();
