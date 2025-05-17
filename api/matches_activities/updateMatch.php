@@ -53,26 +53,32 @@ if ($isProtected) {
     exit;
 }
 
-$stmt = $pdo->prepare("UPDATE matches SET $column = :answer WHERE id = :matchId");
+$stmt = $pdo->prepare("UPDATE matches_activities SET $column = :answer WHERE id = :matchId");
 $stmt->bindParam(':answer', $answer);
 $stmt->bindParam(':matchId', $matchId);
 $stmt->execute();
 
 // 5. Je nach Kombination: Update status
-$stmt = $pdo->prepare("SELECT answer_protected, answer_protector FROM matches WHERE id = :matchId");
+$stmt = $pdo->prepare("SELECT answer_protected, answer_protector FROM matches_activities WHERE id = :matchId");
 $stmt->bindParam(':matchId', $matchId);
 $stmt->execute();
 $answers = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($answers['answer_protected'] === "no" || $answers['answer_protector'] === "0") {
     $status = "dismissed";
-} elseif ($answers['answer_protected'] === "yes" && $answers['answer_protector'] === "1") {
+} elseif (
+    $answers['answer_protected'] !== null &&
+    substr($answers['answer_protected'], -4) === "_yes" &&
+    $answers['answer_protector'] === "1"
+) {
     $status = "approved";
 } else {
     $status = $answers['answer_protected'] !== null ? $answers['answer_protected'] : null;
 }
 
-$stmt = $pdo->prepare("UPDATE matches SET status = :status WHERE id = :matchId");
+$stmt = $pdo->prepare("UPDATE matches_activities SET status = :status WHERE id = :matchId");
 $stmt->bindParam(':status', $status);
 $stmt->bindParam(':matchId', $matchId);
 $stmt->execute();
+
+echo json_encode(["success" => true]);

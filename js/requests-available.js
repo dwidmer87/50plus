@@ -109,6 +109,78 @@ async function createMatchInDB(match) {
 }
 
 //____________________________________________________________
+// Match-ID auslesen
+//____________________________________________________________
+
+async function fetchMatchId(match) {
+  const payload = {
+    id_protected: match.request.id_protected,
+    id_protector: match.offer.id_protector,
+    id_request: match.request.id
+  };
+
+  console.log("📤 Gesendeter Payload:", payload);
+
+  try {
+    const response = await fetch('/api/matches_activities/readMatchId.php', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    console.log("📥 Serverantwort:", result);
+
+    if (result.success && result.match_id) {
+      console.log("✅ Erfolgreich Match-ID abgerufen:", result.match_id);
+      return result.match_id;
+    } else {
+      console.warn("⚠️ Match-ID konnte nicht ausgelesen werden");
+      return null;
+    }
+  } catch (error) {
+    console.error("❌ Fehler beim Abrufen der Match-ID:", error);
+    return null;
+  }
+}
+
+//____________________________________________________________
+// Funktion für Antwort-Buttons
+//____________________________________________________________
+
+async function sendAnswer(match, answer) {
+  const matchId = await fetchMatchId(match);
+  if (!matchId) {
+    console.error("❌ Keine gültige Match-ID – Antwort wird nicht gesendet.");
+    return;
+  }
+
+  try {
+    const response = await fetch('/api/matches_activities/updateMatch.php', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        matchId: matchId,
+        answer: answer
+      })
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      console.log(`✅ Antwort ${answer} erfolgreich gespeichert für Match-ID ${matchId}`);
+    } else {
+      console.error("❌ Fehler beim Speichern der Antwort:", result.error);
+    }
+  } catch (error) {
+    console.error("❌ Netzwerk-/Serverfehler beim Senden der Antwort:", error);
+  }
+}
+
+//____________________________________________________________
 // UI anzeigen
 //____________________________________________________________
 
@@ -142,9 +214,15 @@ function renderRequests(matches) {
 
     const acceptBtn = document.createElement("button");
     acceptBtn.textContent = "ZUSAGEN";
+    acceptBtn.addEventListener("click", () => {
+      sendAnswer(match, 1); // 1 = Zusagen
+    });
 
     const rejectBtn = document.createElement("button");
     rejectBtn.textContent = "ABLEHNEN";
+    rejectBtn.addEventListener("click", () => {
+      sendAnswer(match, 0); // 0 = Ablehnen
+    });
 
     card.appendChild(name);
     card.appendChild(requestedLabelStart);
@@ -158,6 +236,7 @@ function renderRequests(matches) {
     container.appendChild(card);
   });
 }
+
 
 // Datum formatieren
 function formatDateTime(dateStr) {

@@ -149,13 +149,104 @@ async function fetchMatchId(match) {
 }
 
 //____________________________________________________________
+// Funktion für Antwort-Buttons
+//____________________________________________________________
+
+// Anruf-Button:
+
+function showCallPopup(matchId) {
+  const popup = document.getElementById("custom-popup_call");
+  const callBtn = document.getElementById("popup-call-btn");
+
+  popup.style.display = "block";
+
+  callBtn.onclick = () => {
+    window.location.href = `tel:`;
+  };
+
+  document.querySelectorAll(".popup-answer-btn").forEach(btn => {
+    btn.onclick = async () => {
+      const answer = btn.dataset.answer;
+
+      try {
+        const response = await fetch("/api/matches_activities/updateMatch.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            matchId: matchId,
+            answer: answer
+          })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          console.log("Antwort gespeichert:", answer);
+        } else {
+          console.error("Fehler beim Speichern:", result.error);
+        }
+      } catch (error) {
+        console.error("Fehler beim Speichern:", error);
+      }
+
+      popup.style.display = "none";
+    };
+  });
+}
+
+// Nachricht-Button:
+
+function showMsgPopup(matchId) {
+  const popup = document.getElementById("custom-popup_msg");
+  const msgBtn = document.getElementById("popup-msg-btn");
+
+  popup.style.display = "block";
+
+  msgBtn.onclick = () => {
+    window.location.href = `https://wa.me/`;
+  };
+
+  document.querySelectorAll(".popup-answer-btn").forEach(btn => {
+    btn.onclick = async () => {
+      const answer = btn.dataset.answer;
+
+      try {
+        const response = await fetch("/api/matches_activities/updateMatch.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            matchId: matchId,
+            answer: answer
+          })
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          console.log("Antwort gespeichert:", answer);
+        } else {
+          console.error("Fehler beim Speichern:", result.error);
+        }
+      } catch (error) {
+        console.error("Fehler beim Speichern:", error);
+      }
+
+      popup.style.display = "none";
+    };
+  });
+}
+
+
+//____________________________________________________________
 // UI anzeigen
 //____________________________________________________________
 
 function renderOffers(matches) {
   const container = document.getElementById("avilableOffers");
   container.innerHTML = "";
-
+  
   matches.forEach(match => {
     const offer = match.offer;
 
@@ -184,49 +275,19 @@ function renderOffers(matches) {
     callBtn.textContent = "ANRUF";
 
     callBtn.addEventListener("click", async () => {
-  const matchId = await fetchMatchId(match);
-  if (!matchId) {
-    alert("Match-ID konnte nicht geladen werden");
-    return;
-  }
-
-  // Pop-up mit Anrufbutton und Antwortoptionen
-  Swal.fire({
-    title: 'Wird XY begleiten?',
-    html: `
-      <a href="tel:+41791234567" class="swal2-confirm swal2-styled" style="margin-bottom: 1em;">📞 Jetzt anrufen</a><br>
-      <button id="btn-yes" class="swal2-confirm swal2-styled">Ja</button>
-      <button id="btn-no" class="swal2-cancel swal2-styled">Nein</button>
-      <button id="btn-unclear" class="swal2-deny swal2-styled">Unklar</button>
-    `,
-    showConfirmButton: false,
-    didOpen: () => {
-      document.getElementById("btn-yes").addEventListener("click", () => sendAnswer("phone_yes", matchId));
-      document.getElementById("btn-no").addEventListener("click", () => sendAnswer("phone_no", matchId));
-      document.getElementById("btn-unclear").addEventListener("click", () => sendAnswer("phone_unclear", matchId));
-    }
-  });
-});
-
-// Antwort senden
-async function sendAnswer(answerCode, matchId) {
-  const res = await fetch("/api/matches_activities/updateMatch.php", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ matchId, answer: answerCode })
-  });
-
-  const result = await res.json();
-  if (result.error) {
-    Swal.showValidationMessage("Fehler beim Speichern");
-  } else {
-    Swal.fire("Antwort gespeichert", "", "success");
-  }
-}
-
+    const matchId = await fetchMatchId(match);
+    if (matchId) {
+    showCallPopup(matchId);
+    }});
 
     const msgBtn = document.createElement("button");
     msgBtn.textContent = "NACHRICHT";
+
+    msgBtn.addEventListener("click", async () => {
+    const matchId = await fetchMatchId(match);
+    if (matchId) {
+    showMsgPopup(matchId);
+    }});
 
     const voiceBtn = document.createElement("button");
     voiceBtn.textContent = "SPRACHNACHRICHT";
@@ -298,67 +359,3 @@ function formatDateTime(dateStr) {
   // Angebote anzeigen
   renderOffers(matches);
 })();
-
-    // 1. Eventlistener für ANRUF-Button
-    callBtn.addEventListener("click", async () => {
-      // 2. Telefonfunktion starten (einfacher tel:-Link für mobile)
-      window.location.href = `tel:${offer.phone || ''}`; // Muss später sinnvoll ergänzt werden
-
-      // 3. Match-ID abrufen
-      const matchId = await fetchMatchId(match);
-      if (!matchId) {
-        alert("Fehler beim Abrufen der Match-ID");
-        return;
-      }
-
-      // 4. Popup anzeigen – Platzhaltername XY
-      const popup = document.createElement("div");
-      popup.classList.add("popup");
-      popup.innerHTML = `
-        <div class="popup-content">
-          <p>Wird dich XY begleiten?</p>
-          <button data-answer="phone_yes">Ja</button>
-          <button data-answer="no">Nein</button>
-          <button data-answer="phone_unclear">Unklar</button>
-          <button id="popupClose">Schliessen</button>
-        </div>
-      `;
-      document.body.appendChild(popup);
-
-      // 5. Antwort-Buttons behandeln
-      popup.querySelectorAll("button[data-answer]").forEach(btn => {
-        btn.addEventListener("click", async () => {
-          const answer = btn.getAttribute("data-answer");
-
-          // 6. Antwort an updateMatch.php senden
-          try {
-            const res = await fetch("/api/matches_activities/updateMatch.php", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({ matchId, answer })
-            });
-
-            const result = await res.json();
-            console.log("Antwort gespeichert:", result);
-
-            if (result.success) {
-              alert("Antwort erfolgreich gespeichert");
-            } else {
-              alert("Fehler beim Speichern der Antwort");
-            }
-          } catch (err) {
-            console.error("Netzwerkfehler:", err);
-            alert("Fehler beim Senden der Antwort");
-          }
-
-          popup.remove();
-        });
-      });
-
-      // Optionaler Close-Button
-      popup.querySelector("#popupClose").addEventListener("click", () => {
-        popup.remove();
-      });
-    });
