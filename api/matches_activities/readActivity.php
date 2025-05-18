@@ -25,6 +25,17 @@ $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 $stmt->execute();
 $allActivities = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// id_protector/id_protected auf "actualUser" setzen, wenn sie userId entsprechen
+foreach ($allActivities as &$activity) {
+    if ($activity['id_protected'] == $userId) {
+        $activity['id_protected'] = 'actualUser';
+    }
+    if ($activity['id_protector'] == $userId) {
+        $activity['id_protector'] = 'actualUser';
+    }
+}
+unset($activity);
+
 if (!$allActivities || count($allActivities) === 0) {
     http_response_code(404);
     echo json_encode(["error" => "Aktivität nicht gefunden"]);
