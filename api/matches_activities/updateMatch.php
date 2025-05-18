@@ -64,7 +64,7 @@ $stmt->bindParam(':matchId', $matchId);
 $stmt->execute();
 $answers = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if ($answers['answer_protected'] === "no" || $answers['answer_protector'] === "0") {
+if ($answers['answer_protected'] === "no" || $answers['answer_protector'] == "0") {
     $status = "dismissed";
 } elseif (
     $answers['answer_protected'] !== null &&

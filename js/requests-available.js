@@ -215,13 +215,13 @@ function renderRequests(matches) {
     const acceptBtn = document.createElement("button");
     acceptBtn.textContent = "ZUSAGEN";
     acceptBtn.addEventListener("click", () => {
-      sendAnswer(match, 1); // 1 = Zusagen
+      sendAnswer(match, 1);
     });
 
     const rejectBtn = document.createElement("button");
     rejectBtn.textContent = "ABLEHNEN";
     rejectBtn.addEventListener("click", () => {
-      sendAnswer(match, 0); // 0 = Ablehnen
+      sendAnswer(match, 0);
     });
 
     card.appendChild(name);
