@@ -69,7 +69,7 @@ if ($answers['answer_protected'] === "no" || $answers['answer_protector'] === "0
 } elseif (
     $answers['answer_protected'] !== null &&
     substr($answers['answer_protected'], -4) === "_yes" &&
-    $answers['answer_protector'] === "1"
+    $answers['answer_protector'] == "1"
 ) {
     $status = "approved";
 } else {
