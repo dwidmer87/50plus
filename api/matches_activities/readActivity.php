@@ -15,10 +15,11 @@ require_once '../../system/config.php';
 $userId = $_SESSION['user_id'];
 
 $stmt = $pdo->prepare("
-    SELECT status
-    FROM matches_activities 
-    WHERE id_protected = :userId
-      OR id_protector = :userId
+    SELECT ma.status, ma.id_protected, ma.id_protector, ro.date_time_start, ro.place
+    FROM matches_activities ma
+    JOIN requests_offers ro ON ma.id_request = ro.id
+    WHERE ma.id_protected = :userId
+      OR ma.id_protector = :userId
 ");
 $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 $stmt->execute();
