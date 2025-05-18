@@ -18,8 +18,8 @@ $stmt = $pdo->prepare("
     SELECT ma.status, ma.id_protected, ma.id_protector, ro.date_time_start, ro.place
     FROM matches_activities ma
     JOIN requests_offers ro ON ma.id_request = ro.id
-    WHERE ma.id_protected = :userId
-      OR ma.id_protector = :userId
+    WHERE (ma.id_protected = :userId OR ma.id_protector = :userId)
+      AND ma.status IS NOT NULL
 ");
 $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 $stmt->execute();
