@@ -154,9 +154,13 @@ async function fetchMatchId(match) {
 
 // Anruf-Button:
 
-function showCallPopup(matchId) {
+function showCallPopup(match, matchId) {
   const popup = document.getElementById("custom-popup_call");
   const callBtn = document.getElementById("popup-call-btn");
+  const fullNameSpans = document.getElementsByClassName("fullNameProtector");
+  for (const span of fullNameSpans) {
+    span.textContent = match.offer.name || "Unbekannter Name";
+  }
 
   popup.style.display = "block";
 
@@ -197,9 +201,13 @@ function showCallPopup(matchId) {
 
 // Nachricht-Button:
 
-function showMsgPopup(matchId) {
+function showMsgPopup(match, matchId) {
   const popup = document.getElementById("custom-popup_msg");
   const msgBtn = document.getElementById("popup-msg-btn");
+  const fullNameSpans = document.getElementsByClassName("fullNameProtector");
+  for (const span of fullNameSpans) {
+    span.textContent = match.offer.name || "Unbekannter Name";
+  }
 
   popup.style.display = "block";
 
@@ -275,10 +283,11 @@ function renderOffers(matches) {
     callBtn.textContent = "ANRUF";
 
     callBtn.addEventListener("click", async () => {
-    const matchId = await fetchMatchId(match);
-    if (matchId) {
-    showCallPopup(matchId);
-    }});
+      const matchId = await fetchMatchId(match);
+      if (matchId) {
+        showCallPopup(match, matchId);
+      }
+    });
 
     const msgBtn = document.createElement("button");
     msgBtn.textContent = "NACHRICHT";
@@ -286,7 +295,7 @@ function renderOffers(matches) {
     msgBtn.addEventListener("click", async () => {
     const matchId = await fetchMatchId(match);
     if (matchId) {
-    showMsgPopup(matchId);
+    showMsgPopup(match, matchId);
     }});
 
     const voiceBtn = document.createElement("button");
