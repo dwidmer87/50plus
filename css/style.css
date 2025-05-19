@@ -285,6 +285,9 @@ button:hover{
     color: var(--title-blue);
 }
 
+.empty_bottom {
+  height: 170px;
+}
 
 footer {
   position: fixed;

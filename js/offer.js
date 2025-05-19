@@ -65,6 +65,10 @@ document.getElementById("offerForm").addEventListener("submit", function(e) {
   });
 });
 
+document.getElementById("btnOffer").addEventListener("click", function () {
+  document.getElementById("offerForm").dispatchEvent(new Event("submit", { cancelable: true }));
+});
+
 //____________________________________________________________________________
 // Dynamisches Anzeigen/Verstecken der Kostenbeschreibung
 //____________________________________________________________________________
@@ -80,3 +84,5 @@ document.getElementById("compensation_required").addEventListener("change", func
     textarea.value = ""; // leeren, wenn "Nein"
   }
 });
+
+
