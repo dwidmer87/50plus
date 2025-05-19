@@ -298,9 +298,6 @@ function renderOffers(matches) {
     showMsgPopup(match, matchId);
     }});
 
-    const voiceBtn = document.createElement("button");
-    voiceBtn.textContent = "SPRACHNACHRICHT";
-
     card.appendChild(name);
     card.appendChild(availableLabelStart);
     card.appendChild(availableLabelEnd);
@@ -308,7 +305,6 @@ function renderOffers(matches) {
     card.appendChild(compensation);
     card.appendChild(callBtn);
     card.appendChild(msgBtn);
-    card.appendChild(voiceBtn);
 
     container.appendChild(card);
   });

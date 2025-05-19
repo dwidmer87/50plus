@@ -54,6 +54,7 @@ document.getElementById("offerForm").addEventListener("submit", function(e) {
   .then(result => {
     if (result.success) {
       alert("Angebot erfolgreich gespeichert!");
+      window.location.href = "requests-available.html";
     } else {
       alert("Fehler: " + result.message);
     }

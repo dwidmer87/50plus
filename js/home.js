@@ -102,14 +102,14 @@ function createActivityCard(activity, actualUserId) {
       break;
     case "phone_yes":
     case "phone_unclear":
-      if (isProtected) label = `Telefon mit: ${otherPerson}`;
+      if (isProtected) label = `telefoniert mit: ${otherPerson}`;
       else {
         label = `<a href="requests-available.html">Anfrage von ${otherPerson} beantworten</a>`;
       }
       break;
     case "message_yes":
     case "message_unclear":
-      if (isProtected) label = `Nachricht an: ${otherPerson}`;
+      if (isProtected) label = `Nachrichtenverkehr mit: ${otherPerson}`;
       label = `<a href="requests-available.html">Anfrage von ${otherPerson} beantworten</a>`;
       break;
     default:

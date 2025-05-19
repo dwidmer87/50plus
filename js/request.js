@@ -99,6 +99,7 @@ const dateEndFormatted = formatLocalDateTime(dateEndObj);
       if (result.success) {
         alert("Ihre Anfrage wurde erfolgreich gespeichert.");
         form.reset();
+        window.location.href = "offers-available.html";
       } else {
         alert("Fehler: " + (result.error || "Unbekannter Fehler"));
       }
