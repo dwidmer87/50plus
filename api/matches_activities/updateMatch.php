@@ -66,7 +66,12 @@ $answers = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($answers['answer_protected'] === "no" || $answers['answer_protector'] == "0") {
     $status = "dismissed";
-} elseif (
+} else if (
+    $answers['answer_protected'] == null &&
+    $answers['answer_protector'] == "1"
+) {
+    $status = "ready";
+} else if (
     $answers['answer_protected'] !== null &&
     substr($answers['answer_protected'], -4) === "_yes" &&
     $answers['answer_protector'] == "1"

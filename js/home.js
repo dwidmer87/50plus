@@ -94,6 +94,12 @@ function createActivityCard(activity, actualUserId) {
         label = `keine Begleitung von: ${otherPerson}`;
       }
       break;
+    case "ready":
+      if (otherPerson !== "actualUser") {
+        label = `bereit, Sie zu begleiten: ${otherPerson}`;
+        label = `<a href="offers-available.html">Angebot von ${otherPerson} beantworten</a>`;
+      }
+      break;
     case "phone_yes":
     case "phone_unclear":
       if (isProtected) label = `Telefon mit: ${otherPerson}`;
