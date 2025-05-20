@@ -320,6 +320,7 @@ footer ul div {
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
 }
 
 footer ul div a {
@@ -350,6 +351,7 @@ footer ul div:hover,
 footer ul div:active {
   background-color: var(--orange);
 }
+
 
 .popup{
   display:none;
