@@ -294,7 +294,7 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 140px;
+  height: 120px;
   box-shadow: 0px 7px 39px 0px rgba(0, 0, 0, 0.25);
   background-color: white;
 }
@@ -303,55 +303,60 @@ footer ul {
   list-style: none;
   display: flex;
   justify-content: center;
-  align-items: top;
-  height: 100%;
+  align-items: stretch;
   padding: 0;
-  margin: 0 0;
+  margin: 0;
   width: 100%;
 }
 
-footer ul div {
+footer ul li {
   flex: 1;
   text-align: center;
-  margin: 0 15px;
 }
 
-footer ul div {
+footer ul li a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  cursor: pointer;
-}
-
-footer ul div a {
+  justify-content: center;
   text-decoration: none;
   color: var(--text-black);
+  cursor: pointer;
+  padding: 10px 0;
+  height: 100%;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+footer ul li a:hover,
+footer ul li a:active {
+  background-color: var(--orange);
+}
+
+footer ul li a img {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 8px auto; /* zentriert & Abstand nach unten */
+}
+
+
+footer ul li a span {
+  display: flex;
+  justify-content: center;
+  text-align: center;
   font-family: Roboto;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin-top: 5px;
 }
 
 @media screen and (max-width: 600px) {
-  footer ul div a {
+  footer ul li a span {
     font-size: 18px;
     margin-top: -5px;
   }
 }
-
-footer ul div img {
-  margin: 20px 0;
-  width: 50px;
-  height: 50px;
-}
-
-footer ul div:hover,
-footer ul div:active {
-  background-color: var(--orange);
-}
-
 
 .popup{
   display:none;
