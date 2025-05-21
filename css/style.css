@@ -71,7 +71,7 @@ h4 {
 }
 
 /* _______________________________________________________________ */
-/* Speziell auf home.html */
+/* home.html */
 /* _______________________________________________________________ */
 
 .btn_request_offer {
@@ -102,6 +102,7 @@ h4 {
   font-weight: 700;
   font-size: 28px;
   color: white;
+  margin: 0 0 0 40px;
 }
 
 .circle_plus {
