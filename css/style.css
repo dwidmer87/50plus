@@ -1,6 +1,7 @@
 
 :root {
   --title-blue:#061A48;
+  --link-blue:#656A92;
   --orange:#EE5719;
   --bg-grey:#E0E0E0;
   --text-black:#1E1E1E;
@@ -14,13 +15,8 @@ body {
   margin: 0;
 }
 
-.nonscroll_body {
-  height: 100vh;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  position: relative;
-  box-sizing: border-box;
+.user-profile{
+  background-color: var(--bg-grey);
 }
 
 h1 {
@@ -256,6 +252,88 @@ input {
   }
 }
 
+.edit_profile{
+  background-color: white;;
+  width: 500px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  margin: 0 auto;
+  padding: 0 0 10px 0;
+}
+@media screen and (max-width: 600px) {
+  .edit_profile{
+    width: 100%;
+    font-size: 18px;
+  }
+}
+
+.icon-container{
+  background-color: var(--title-blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border-radius: 20px 20px 0 0;
+}
+.icon-container img{
+  width: 100px;
+  height: 100px;
+  margin: 50px auto;
+}
+
+.edit_profile section{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+  width: 100%;
+}
+
+.edit_profile section input{
+  width: 460px;
+  height: 40px;
+  border-radius: 0;
+  border-bottom: 2px solid var(--title-blue);
+  background-color: white;
+  box-shadow: none;
+  margin: 0 0 20px 0;
+  display: flex;
+  align-items: center;
+  font-family: 'Roboto', sans-serif;
+}
+@media screen and (max-width: 600px) {
+.edit_profile section input{
+    width: 90vw;
+    margin: 0 auto 20px auto;
+    font-size: 18px;
+  }
+}
+
+.edit_profile a{
+  display: flex;
+  width: 100%;
+  color: var(--link-blue);
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 20px auto;
+  justify-content: center;
+}
+
+.notification{
+  display: flex;
+  flex-direction: column;
+}
+.notification img{
+  width: 200px;
+  margin: 50px auto;
+
+}
+
+.notification h3{
+  margin: 0 auto;
+}
 button{
     display: flex;
     justify-content: center;

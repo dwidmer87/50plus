@@ -16,22 +16,23 @@ p{
     height: 150px;
 }
 
-.welcome_icon{
+.welcome_icon {
     height: 120px;
     width: 120px;
     background-color: white;
     border-radius: 50%;
     margin: 50px auto 0;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .welcome_icon img {
     width: 80%;
     height: 80%;
     border-radius: 50%;
-    display: block;
-    margin: auto;
 }
+
 
 .title_container{
     display: flex;

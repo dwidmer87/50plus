@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style_unverified.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
-<body>
-  <h3>Profil bearbeiten</h3>
-  
+<body class="user-profile">
+  <div class="page_title">
+    <h3>Profil bearbeiten</h3>
+  </div>
+
   <div class="edit_profile">
     <div class ="icon-container">
-      <img src="images/user.png" alt="User Icon" class="user-icon">
+      <img src="img/icon_user_white.png" alt="User Icon" class="user-icon">
     </div>
       <section id="editProfile">
         <input type="text" id="inputFullName" placeholder="Vor- und Nachname" />
@@ -33,7 +34,6 @@
 
   <script type="module" src="js/user-profile.js"></script>
   <script src="js/footer.js"></script>
-  <script src="js/logout.js"></script>
 </body>
 
 </html>
