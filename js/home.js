@@ -57,6 +57,10 @@ async function loadProfile() {
 
 window.addEventListener("load", checkAuth);
 
+//________________________________________
+// Aktivitäten laden und in DOM einfügen
+//________________________________________
+
 function formatDate(dateString) {
   const options = { day: "numeric", month: "long", year: "numeric" };
   const date = new Date(dateString);
@@ -91,25 +95,25 @@ function createActivityCard(activity, actualUserId) {
       break;
     case "dismissed":
       if (otherPerson !== "actualUser") {
-        label = `keine Begleitung von: ${otherPerson}`;
+        label = `<div class="activity-label_type">keine Begleitung von:</div><div class="activity-label_person">${otherPerson}</div>`;
       }
       break;
     case "ready":
       if (otherPerson !== "actualUser") {
-        label = `bereit, Sie zu begleiten: ${otherPerson}`;
+        label = `<div class="activity-label_type">bereit, Sie zu begleiten:</div><div class="activity-label_person">${otherPerson}</div>`;
         label = `<a href="offers-available.html">Angebot von ${otherPerson} beantworten</a>`;
       }
       break;
     case "phone_yes":
     case "phone_unclear":
-      if (isProtected) label = `telefoniert mit: ${otherPerson}`;
+      if (isProtected) label = `<div class="activity-label_type">telefoniert mit:</div><div class="activity-label_person">${otherPerson}</div>`;
       else {
         label = `<a href="requests-available.html">Anfrage von ${otherPerson} beantworten</a>`;
       }
       break;
     case "message_yes":
     case "message_unclear":
-      if (isProtected) label = `Nachrichtenverkehr mit: ${otherPerson}`;
+      if (isProtected) label = `<div class="activity-label_type">Nachrichtenverkehr mit:</div><div class="activity-label_person">${otherPerson}</div>`;
       label = `<a href="requests-available.html">Anfrage von ${otherPerson} beantworten</a>`;
       break;
     default:
@@ -120,9 +124,9 @@ function createActivityCard(activity, actualUserId) {
   card.classList.add("activity-card"); // Style-Klasse
 
   card.innerHTML = `
-    <div class="activity-title"><strong>${dateFormatted}</strong></div>
+    <div class="activity-title"><h4>${dateFormatted}</h4></div>
     <div class="activity-label">${label}</div>
-    <div class="activity-place">Ort: ${activity.place}</div>
+    <div class="activity-place"><div class="activity-place_label">Ort:</div><div class="activity-place_value">${activity.place}</div></div>
   `;
   return card;
 }

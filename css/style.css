@@ -1,3 +1,6 @@
+/* _______________________________________________________________ */
+/* Allgemeine Stile */
+/* _______________________________________________________________ */
 
 :root {
   --title-blue:#061A48;
@@ -7,6 +10,9 @@
   --text-black:#1E1E1E;
   --text-grey:#4F4F4F;
 }
+/* _______________________________________________________________ */
+/* Stile für die gesamte Seite */
+/* _______________________________________________________________ */
 
 body {
   font-family: 'Roboto', sans-serif;
@@ -44,6 +50,15 @@ h3 {
   font-size: 20px;
 }
 
+h4 {
+  color: var(--title-blue);
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  margin: 0 auto 10px auto;
+}
+
 .page_title{
  width: 500px;
  margin: 0 auto;
@@ -54,6 +69,102 @@ h3 {
     width: 90vw;
   }
 }
+
+/* _______________________________________________________________ */
+/* Speziell auf home.html */
+/* _______________________________________________________________ */
+
+.btn_request_offer {
+  display: flex;
+  background-color: var(--orange);
+  width: 500px;
+  height: 92px;
+  border-radius: 20px;
+  margin: 20px auto;
+  color: white;
+  text-decoration: none;
+  align-items: center;
+  gap: 20px;
+}
+
+@media screen and (max-width: 600px) {
+  .btn_request_offer {
+    width: 90vw;
+  }
+}
+
+.btn_request_offer:hover {
+  background-color: var(--title-blue);
+}
+
+.btn_request_offer span {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: white;
+}
+
+.circle_plus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  width: 60px;
+  margin: 0 0 0 20px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  flex-shrink: 0;
+}
+
+.circle_plus p {
+  color: var(--orange);
+  font-family: 'Roboto', sans-serif;
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.activity-card{
+  background-color: var(--bg-grey);
+  width: 500px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  padding: 10px 20px;
+  margin: 20px auto;
+}
+
+@media screen and (max-width: 600px) {
+  .activity-card{
+    width: 90vw;
+  }
+}
+
+.activity-card a, .activity-label, .activity-place{
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
+
+.activity-card a{
+  color: var(--link-blue);
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+
+.activity-label, .activity-place{
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+}
+
+.activity-label_type, .activity-place_label{
+  color: var(--orange);
+  font-weight: 700;
+}
+
+/* _______________________________________________________________ */
+/* Formular Stile */
+/* _______________________________________________________________ */
 
 form{
     display: flex;
@@ -252,6 +363,10 @@ input {
   }
 }
 
+/* _______________________________________________________________ */
+/* user-profile.html */
+/* _______________________________________________________________ */
+
 .edit_profile{
   background-color: white;;
   width: 500px;
@@ -328,12 +443,16 @@ input {
 .notification img{
   width: 200px;
   margin: 50px auto;
-
 }
 
 .notification h3{
   margin: 0 auto;
 }
+
+/* _______________________________________________________________ */
+/* Stile für die Buttons */
+/* _______________________________________________________________ */
+
 button{
     display: flex;
     justify-content: center;
@@ -362,6 +481,10 @@ button:hover{
     height: 60px;
     color: var(--title-blue);
 }
+
+/* _______________________________________________________________ */
+/* Footer */
+/* _______________________________________________________________ */
 
 .empty_bottom {
   height: 150px;
@@ -435,6 +558,10 @@ footer ul li a span {
     margin-top: -5px;
   }
 }
+
+/* _______________________________________________________________ */
+/* Popups */
+/* _______________________________________________________________ */
 
 .popup{
   display:none;
