@@ -16,7 +16,7 @@ p{
     height: 150px;
 }
 
-#welcome_icon{
+.welcome_icon{
     height: 120px;
     width: 120px;
     background-color: white;
@@ -25,7 +25,7 @@ p{
     display: block;
 }
 
-#welcome_icon img {
+.welcome_icon img {
     width: 80%;
     height: 80%;
     border-radius: 50%;
