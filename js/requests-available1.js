@@ -192,25 +192,25 @@ function renderRequests(matches) {
     const request = match.request;
 
     const card = document.createElement("div");
-    card.classList.add("activity-card");
+    card.classList.add("offer-card");
 
     const name = document.createElement("h4");
     name.textContent = request.name || "Unbekannter Name";
 
     const requestedLabelStart = document.createElement("p");
-    requestedLabelStart.innerHTML = `<div class= activity-label><div class= activiy_description>Wann?</div><div class= activity_value>${formatDateTime(request.date_time_start)}</div></div>`;
+    requestedLabelStart.innerHTML = `<strong>Wann?</strong> ${formatDateTime(request.date_time_start)}`;
     
     const requestedLabelEnd = document.createElement("p");
-    requestedLabelEnd.innerHTML = `div class= activity-label><div class= activiy_description>Wie lange?</div><div class= activity_value>${formatDuration(request.date_time_start, request.date_time_end)}</div></div>`;
+    requestedLabelEnd.innerHTML = `<strong>Wie lange?</strong> ${formatDuration(request.date_time_start, request.date_time_end)}`;
 
     const location = document.createElement("p");
-    location.innerHTML = `div class= activity-label><div class= activiy_description>Ort:</div><div class= activity_value>${request.place}</div></div>`;
+    location.innerHTML = `<strong>Ort:</strong> ${request.place}`;
 
     const destination = document.createElement("p");
-    destination.innerHTML = `div class= activity-label><div class= activiy_description>Wohin?:</div><div class= activity_value>${request.destination}</div></div>`;
+    destination.innerHTML = `<strong>Wohin?:</strong> ${request.destination}`;
 
     const transport = document.createElement("p");
-    transport.innerHTML = `div class= activity-label><div class= activiy_description>Verkehrsmittel:</div><div class= activity_value>${formatTransport(request.transport)}</div></div`;
+    transport.innerHTML = `<strong>Verkehrsmittel:</strong> ${formatTransport(request.transport)}`;
 
     const acceptBtn = document.createElement("button");
     acceptBtn.textContent = "ZUSAGEN";
