@@ -259,24 +259,24 @@ function renderOffers(matches) {
     const offer = match.offer;
 
     const card = document.createElement("div");
-    card.classList.add("offer-card");
+    card.classList.add("activity-card");
 
     const name = document.createElement("h4");
     name.textContent = offer.name || "Unbekannter Name";
 
     const availableLabelStart = document.createElement("p");
-    availableLabelStart.innerHTML = `<strong>verfügbar ab:</strong> ${formatDateTime(offer.date_time_start)}`;
+    availableLabelStart.innerHTML = `<div class= activity-label><div class= activity_description>verfügbar ab:</div><div class= activity_value>${formatDateTime(offer.date_time_start)}</div></div>`;
 
     const availableLabelEnd = document.createElement("p");
-    availableLabelEnd.innerHTML = `<strong>verfügbar bis:</strong> ${formatDateTime(offer.date_time_end)}`;
+    availableLabelEnd.innerHTML = `<div class= activity-label><div class= activity_description>verfügbar bis:</div><div class= activity_value>${formatDateTime(offer.date_time_end)}</div></div>`;
 
     const location = document.createElement("p");
-    location.innerHTML = `<strong>Ort:</strong> ${offer.place}`;
+    location.innerHTML = `<div class= activity-label><div class= activity_description>Ort:</div><div class= activity_value>${offer.place}</div></div>`;
 
     const compensation = document.createElement("p");
     const compensationText = offer.compensation_required === 0 
-      ? "<strong>kostenlos</strong>" 
-      : "<strong>Kosten: </strong>" + (offer.compensation_details ? offer.compensation_details.replace(/\n/g, "<br>") : "Keine Angabe");
+      ? `<div class="activity-label"><div class="activity_description">Kosten:</div><div class="activity_value">kostenlos</div></div>`
+      : `<div class="activity-label"><div class="activity_description">Kosten:</div><div class="activity_value">${offer.compensation_details ? offer.compensation_details.replace(/\n/g, "<br>") : "Keine Angabe"}</div></div>`;
     compensation.innerHTML = `${compensationText}`;
 
     const callBtn = document.createElement("button");
