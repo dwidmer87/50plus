@@ -59,15 +59,23 @@ h4 {
   margin: 0 auto 10px auto;
 }
 
-.page_title{
+.page_title, .last_request_offer{
  width: 500px;
  margin: 0 auto;
 }
 
 @media screen and (max-width: 600px) {
-  .page_title{
+  .page_title, .last_request_offer{
     width: 90vw;
   }
+}
+
+.last_request_offer{
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--link-blue);
 }
 
 /* _______________________________________________________________ */
@@ -141,7 +149,7 @@ h4 {
   }
 }
 
-.activity-card a, .activity-label, .activity-place{
+.activity-card a, .activity-label{
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
 }
@@ -152,15 +160,20 @@ h4 {
   margin: 0 0 10px 0;
 }
 
-.activity-label, .activity-place{
+.activity-label{
   display: flex;
   justify-content: space-between;
   margin: 0 0 10px 0;
 }
 
-.activity-label_type, .activity-place_label{
+.activity_description{
   color: var(--orange);
   font-weight: 700;
+}
+
+.activity_value{
+  color: var(--text-grey);
+  font-weight: 400;
 }
 
 /* _______________________________________________________________ */
@@ -175,6 +188,7 @@ form{
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
+
 }
 
 form > div{
@@ -190,7 +204,7 @@ form > div{
 }
 @media screen and (max-width: 600px) {
   .form_container{
-    width: 100%;
+    width: 90vw;
     padding: 10px 10px;
     font-size: 18px;
   }
@@ -203,14 +217,14 @@ form > div{
   border: none;
   background-color: white;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-  margin: 0 0 20px 0;
+  margin: 0 10px 20px 0;
   display: flex;
   align-items: center;
   font-family: 'Roboto', sans-serif;
 }
 @media screen and (max-width: 600px) {
   .form_container input {
-    width: 90vw;
+    width: 85vw;
     margin: 0 auto 20px auto;
     font-size: 18px;
   }
@@ -221,6 +235,7 @@ form > div{
   height: 40px;
   border-radius: 15px;
   border: none;
+  box-sizing:border-box;
   background-color: white;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
   padding-right: 10px; /* Add padding to ensure text doesn't overlap with the icon */
@@ -231,7 +246,7 @@ form > div{
 }
 @media screen and (max-width: 600px) {
   .form_container input[type="datetime-local"] {
-    width: 90vw;
+    width: 85vw;
     margin: 0 auto 20px auto;
   }
 }
@@ -302,10 +317,11 @@ form > div{
 }
 
 .form_container select{
-  width: 480px;
+  width: 460px;
   height: 40px;
   border-radius: 15px;
   border: none;
+  box-sizing: border-box;
   background-color: white;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
   margin: 20px 0;
@@ -318,14 +334,14 @@ form > div{
 }
 @media screen and (max-width: 600px) {
   .form_container select {
-    width: calc(90vw + 20px);
+    width: 90vw;
     margin: 0 auto 20px auto;
     font-size: 18px;
   }
 }
 
 .form_container textarea{
-  width: 480px;
+  width: 460px;
   height: 100px;
   border-radius: 15px;
   border: none;
@@ -350,6 +366,7 @@ input {
   height: 40px;
   border-radius: 15px;
   border: none;
+  box-sizing: border-box;
   background-color: white;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
   padding: 0 10px;

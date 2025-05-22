@@ -95,25 +95,25 @@ function createActivityCard(activity, actualUserId) {
       break;
     case "dismissed":
       if (otherPerson !== "actualUser") {
-        label = `<div class="activity-label_type">keine Begleitung von:</div><div class="activity-label_person">${otherPerson}</div>`;
+        label = `<div class="activity_description">keine Begleitung von:</div><div class="activity_value">${otherPerson}</div>`;
       }
       break;
     case "ready":
       if (otherPerson !== "actualUser") {
-        label = `<div class="activity-label_type">bereit, Sie zu begleiten:</div><div class="activity-label_person">${otherPerson}</div>`;
+        label = `<div class="activity_description">bereit, Sie zu begleiten:</div><div class="activity_value">${otherPerson}</div>`;
         label = `<a href="offers-available.html">Angebot von ${otherPerson} beantworten</a>`;
       }
       break;
     case "phone_yes":
     case "phone_unclear":
-      if (isProtected) label = `<div class="activity-label_type">telefoniert mit:</div><div class="activity-label_person">${otherPerson}</div>`;
+      if (isProtected) label = `<div class="activity_description">telefoniert mit:</div><div class="activity_value">${otherPerson}</div>`;
       else {
         label = `<a href="requests-available.html">Anfrage von ${otherPerson} beantworten</a>`;
       }
       break;
     case "message_yes":
     case "message_unclear":
-      if (isProtected) label = `<div class="activity-label_type">Nachrichtenverkehr mit:</div><div class="activity-label_person">${otherPerson}</div>`;
+      if (isProtected) label = `<div class="activity_description">Nachrichtenverkehr mit:</div><div class="activity_value">${otherPerson}</div>`;
       label = `<a href="requests-available.html">Anfrage von ${otherPerson} beantworten</a>`;
       break;
     default:
@@ -126,7 +126,7 @@ function createActivityCard(activity, actualUserId) {
   card.innerHTML = `
     <div class="activity-title"><h4>${dateFormatted}</h4></div>
     <div class="activity-label">${label}</div>
-    <div class="activity-place"><div class="activity-place_label">Ort:</div><div class="activity-place_value">${activity.place}</div></div>
+    <div class="activity-label"><div class="activity_description">Ort:</div><div class="activity_value">${activity.place}</div></div>
   `;
   return card;
 }
