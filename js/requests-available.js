@@ -198,19 +198,19 @@ function renderRequests(matches) {
     name.textContent = request.name || "Unbekannter Name";
 
     const requestedLabelStart = document.createElement("p");
-    requestedLabelStart.innerHTML = `<div class= activity-label><div class= activiy_description>Wann?</div><div class= activity_value>${formatDateTime(request.date_time_start)}</div></div>`;
+    requestedLabelStart.innerHTML = `<div class= activity-label><div class= activity_description>Wann?</div><div class= activity_value>${formatDateTime(request.date_time_start)}</div></div>`;
     
     const requestedLabelEnd = document.createElement("p");
-    requestedLabelEnd.innerHTML = `div class= activity-label><div class= activiy_description>Wie lange?</div><div class= activity_value>${formatDuration(request.date_time_start, request.date_time_end)}</div></div>`;
+    requestedLabelEnd.innerHTML = `<div class= activity-label><div class= activity_description>Wie lange?</div><div class= activity_value>${formatDuration(request.date_time_start, request.date_time_end)}</div></div>`;
 
     const location = document.createElement("p");
-    location.innerHTML = `div class= activity-label><div class= activiy_description>Ort:</div><div class= activity_value>${request.place}</div></div>`;
+    location.innerHTML = `<div class= activity-label><div class= activity_description>Ort:</div><div class= activity_value>${request.place}</div></div>`;
 
     const destination = document.createElement("p");
-    destination.innerHTML = `div class= activity-label><div class= activiy_description>Wohin?:</div><div class= activity_value>${request.destination}</div></div>`;
+    destination.innerHTML = `<div class= activity-label><div class= activity_description>Wohin?:</div><div class= activity_value>${request.destination}</div></div>`;
 
     const transport = document.createElement("p");
-    transport.innerHTML = `div class= activity-label><div class= activiy_description>Verkehrsmittel:</div><div class= activity_value>${formatTransport(request.transport)}</div></div`;
+    transport.innerHTML = `<div class= activity-label><div class= activity_description>Verkehrsmittel:</div><div class= activity_value>${formatTransport(request.transport)}</div></div>`;
 
     const acceptBtn = document.createElement("button");
     acceptBtn.textContent = "ZUSAGEN";

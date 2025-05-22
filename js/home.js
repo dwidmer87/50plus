@@ -91,7 +91,7 @@ function createActivityCard(activity, actualUserId) {
   
   switch (activity.status) {
     case "approved":
-      label = isProtector ? `begleite: ${otherPerson}` : `werde begleitet von: ${otherPerson}`;
+      label = isProtector ? `<div class="activity_description">begleite:</div><div class="activity_value">${otherPerson}</div>` : `<div class="activity_description">werde begleitet von:</div><div class="activity_value">${otherPerson}</div>`;
       break;
     case "dismissed":
       if (otherPerson !== "actualUser") {
