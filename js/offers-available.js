@@ -46,6 +46,11 @@ function findMatchingOffers(requests, offers) {
   for (const request of requests) {
 
     const requestStart = new Date(request.date_time_start);
+    const now = new Date();
+    const twoHoursAgo = new Date(now.getTime() - 2 * 60 * 60 * 1000);
+    if (requestStart < twoHoursAgo) {
+      continue;
+    }
     const requestEnd = new Date(request.date_time_end);
 
     const transportNeeded = request.transport.split(',').map(s => s.trim());
