@@ -597,6 +597,28 @@ footer ul li a span {
   z-index:1000;
 }
 
+#popup-msg-btn, #popup-call-btn{
+  width:250px;
+  height:40px;
+  border-radius:5px;
+  color: var(--link-blue);
+  background-color: var(--bg-grey);
+  border-color:var(--title-blue);
+  border-style:solid;
+  border-width:0 0 2px 2px;
+}
+
+  #popup-msg-btn :hover, #popup-call-btn :hover{
+  width:250px;
+  height:40px;
+  border-radius: 5px;
+  color: white;
+  background-color: var(--title-blue);
+  border-color:var(--bg-grey);
+  border-style:solid;
+  border-width:0 0 2px 2px;
+} 
+
 .popup-answer {
-  margin-top:10px;
+  margin-top:30px;
 }
