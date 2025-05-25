@@ -332,6 +332,14 @@ form > div{
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   color: var(--text-grey);
+  
+  /* Abstand für den Dropdown-Pfeil */
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='10' viewBox='0 0 16 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L8 8L15 1' stroke='%23656A92' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px 10px;
 }
 @media screen and (max-width: 600px) {
   .form_container select {
@@ -595,6 +603,12 @@ footer ul li a span {
   border:1px solid #ccc;
   box-shadow:0 2px 10px rgba(0,0,0,0.2);
   z-index:1000;
+}
+
+.popup p{
+  font-size: 20px;
+  color: var(--text-black);
+  margin: 0 auto 20px auto;
 }
 
 #popup-msg-btn, #popup-call-btn{

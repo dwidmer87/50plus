@@ -218,13 +218,13 @@ function renderRequests(matches) {
     transport.innerHTML = `<div class= activity-label><div class= activity_description>Verkehrsmittel:</div><div class= activity_value>${formatTransport(request.transport)}</div></div>`;
 
     const acceptBtn = document.createElement("button");
-    acceptBtn.textContent = "ZUSAGEN &#10004";
+    acceptBtn.innerHTML = 'ZUSAGEN &#10004;';
     acceptBtn.addEventListener("click", () => {
       sendAnswer(match, 1);
     });
 
     const rejectBtn = document.createElement("button");
-    rejectBtn.textContent = "ABLEHNEN &#10008";
+    rejectBtn.innerHTML = 'ABLEHNEN &#10008;';
     rejectBtn.addEventListener("click", () => {
       sendAnswer(match, 0);
     });
