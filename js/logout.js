@@ -1,19 +1,11 @@
 // logout.js
-document.getElementById("logoutBtn").addEventListener("click", async (e) => {
-  // Prevent the default button behavior
-  e.preventDefault();
 
+async function logout() {
   try {
-    const response = await fetch("api/logout.php", {
-      method: "GET",
-      credentials: "include",
-    });
-
-    const result = await response.json();
-
-    if (result.status === "success") {
-      // Redirect to logout page after successful logout
-      window.location.href = "logout.html";
+    const res = await fetch('/logout.php', { method: 'POST', credentials: 'include' });
+    const data = await res.json();
+    if (data.status === 'success') {
+      window.location.href = 'logout.html';
     } else {
       console.error("Logout failed");
       alert("Logout failed. Please try again.");
@@ -22,4 +14,9 @@ document.getElementById("logoutBtn").addEventListener("click", async (e) => {
     console.error("Logout error:", error);
     alert("Something went wrong during logout!");
   }
+}
+
+document.getElementById("logoutBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  logout();
 });
