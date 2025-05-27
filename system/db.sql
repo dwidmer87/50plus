@@ -29,7 +29,6 @@ CREATE TABLE IF NOT EXISTS `requests_offers` (
   `destination` VARCHAR(255) DEFAULT NULL,
   `transport` VARCHAR (100) DEFAULT NULL,
   `id_protector` INT DEFAULT NULL,
-  `status` ENUM('angefragt', 'bestätigt', 'telefon', 'nachricht', 'abgelehnt') DEFAULT 'angefragt',
   `compensation_accepted` TINYINT(1) DEFAULT 0,
   `compensation_required` TINYINT(1) DEFAULT 0,
   `compensation_details` TEXT DEFAULT NULL,
