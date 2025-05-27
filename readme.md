@@ -114,10 +114,15 @@ Siehe [system/db.sql](system/db.sql) für das Grundschema.
 ---
 
 ## Weiterentwicklung
+Diese WebApp stellt die Grundfunktionen für Matches zur Verfügung und dient sozusagen als Basis für eine spätere Vollfunktion. Dabei sollen folgende Funktionen integriert werden:
 
-- Kontaktverwaltung (in Planung)
-- Benachrichtigungen
-- Verbesserte Validierung und Fehlerbehandlung
+- Registrierung und Passwort vergessen:
+Ein neues Konto kann nur via verifizierte E-Mail angelegt werden. Dafür wird vollautomatisch ein Verification-PIN an die angegebene Adresse geschickt. Dasselbe bei vergessenem Passwort.
+
+- Kontaktverwaltung:
+Matches entstehen nur zu verifizierten Kontakten. Nur eine Person, die via Verification-PIN zu den Kontakten der begeleiteten Person hinzugefügt wurde, erscheint in den Angeboten als mögliche:r Begleiter:in. Dafür wird eine weitere Datenbank "contacts" implementiert. Kontakte werden in einer Liste als "Ich werde begleitet von" und "Ich begleite" angezeigt und können selbstverständlich auch entfernt werden.
+
+- Benachrichtigungen: Gibt es ein neues Angebot auf eine Begleitanfrage, wird der betreffende User benachrichtigt.
 
 ---
 
