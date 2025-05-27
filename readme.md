@@ -1,71 +1,125 @@
-# 🔑👤 Authentifizierung Minimal (Boilerplate)
+# Sicher-Hei+ – Begleitungsplattform
 
-![Static Badge](https://img.shields.io/badge/Sprache-PHP-%23f7df1e)
-![Static Badge](https://img.shields.io/badge/Kurs-MMP_IM4-blue)
-![Last Changed](https://img.shields.io/endpoint?url=https://badges.crazy-internet.ch/im4_example.php)
+**Sicher-Hei+** ist eine Web-App, die Menschen (insbesondere über 50) dabei unterstützt, Begleitungen für verschiedene Anlässe zu finden oder selbst Begleitung anzubieten. Die Plattform bringt Suchende und Anbietende per Matching zusammen.
 
-> 🎨 Dieses Boilerplate kann entweder in einem Code-Along Schritt für Schritt gemeinsam erarbeitet werden oder fixfertig auf einem Webserver installiert werden.
+---
 
-Dieses Repository beinhaltet ein vollständiges, minimales Authenzifizierungs-System basierend auf PHP als Backend und HTML/CSS/JS als Frontend.
+## Hauptfunktionen
 
-Es ermöglicht Benutzern das `Registrieren`, `Anmelden`, `Abmelden` und den Zugriff auf eine `geschützte Seite` nach erfolgreicher Authentifizierung.
+### 1. Registrierung & Login
 
-# 🏁 Live - Version
+- **Registrierung:**  
+  Nutzer:innen können sich mit Vor- und Nachnamen, E-Mail und Passwort registrieren.  
+  *HTML:* [`register.html`](register.html)  
+  *JS:* [`js/register.js`](js/register.js)  
+  *PHP:* [`api/profile/register.php`](api/profile/register.php)
 
-Du kannst Homely unter folgendem Link testen:
+- **Login & Logout:**  
+  Authentifizierung erfolgt per Session.  
+  *HTML:* [`login.html`](login.html), [`logout.html`](logout.html)  
+  *JS:* [`js/login.js`](js/login.js), [`js/logout.js`](js/logout.js)  
+  *PHP:* [`api/login.php`](api/login.php), [`api/logout.php`](api/logout.php)
 
-[https://im4.crazy-internet.ch/](https://im4.crazy-internet.ch/)
+---
 
-## ⚙️ Installation
+### 2. Profilverwaltung
 
-Um dieses Boilerplate auf dem eigenen Web-Server zu installieren, führe folgende Schritte aus:
+- **Profil anzeigen & bearbeiten:**  
+  Nutzer:innen können Name, E-Mail und Passwort ändern.  
+  *HTML:* [`user-profile.html`](user-profile.html)  
+  *JS:* [`js/user-profile.js`](js/user-profile.js)  
+  *PHP:* [`api/profile/readProfile.php`](api/profile/readProfile.php), [`api/profile/updateProfile.php`](api/profile/updateProfile.php)
 
-### 1. Download
+---
 
-- [Klone das Repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) über GitHub oder [downloade das Repository als ZIP Datei](https://docs.github.com/en/repositories/working-with-files/using-files/downloading-source-code-archives) auf deinen eigenen Computer.
+### 3. Begleitung anfragen & anbieten
 
-### 2. Datenbank
+- **Anfrage stellen:**  
+  Nutzer:innen geben Startzeit, Dauer, Abhol- und Zielort, gewünschtes Verkehrsmittel und Zahlungsbereitschaft an. Abhol- und Zielort werden dabei manuell eingegeben. Die Zahlungsbereitschaft erfolgt nach dem true/false-Schema.
+  *HTML:* [`request.html`](request.html)  
+  *JS:* [`js/request.js`](js/request.js)  
+  *PHP:* [`api/requests_offers/createRequest.php`](api/requests_offers/createRequest.php)
 
-- Erstelle eine neue Datenbank bei deinem Hoster (z.B. [Infomaniak](https://www.infomaniak.com/de/support/faq/1981/mysqlmariadb-benutzer-und-datenbanken-verwalten)).
+- **Angebot erstellen:**  
+  Nutzer:innen geben zeitliche Verfügbarkeit, Standort (manuelle Eingabe), Verkehrsmittel und ggf. Kosten an.
+  *HTML:* [`offer.html`](offer.html)  
+  *JS:* [`js/offer.js`](js/offer.js)  
+  *PHP:* [`api/requests_offers/createOffer.php`](api/requests_offers/createOffer.php)
 
-- Importiere die Datei `system/database.sql` in die neue Datenbank, um die `users` Tabelle zu erstellen.
+---
 
-### 3. Code
+### 4. Matching & Kommunikation
 
-- Benenne die Datei `system/config.php.blank` in `system/config.php` um.
+- **Automatisches Matching:**  
+  Die App gleicht Anfragen und Angebote nach Zeit, Ort, Verkehrsmittel und Zahlungsbereitschaft ab.
 
-- Passe die Datenbankverbindungsdaten in der Datei `system/config.php` an.
+  Matching bei Anfragen:
+  *JS:* [`js/offers-available.js`](js/offers-available.js)
+  *PHP:* [`api/requests_offers/readOfferUser.php] (api/requests_offers/readOfferUser.php) in Kombination mit [`api/requests_offers/readRequestAll.php] (api/requests_offers/readOfferUser.php)
 
-### 4. FTP Connect
+  Matching bei Angeboten:
+  *JS:* [`js/requests-available.js`](js/requests-available.js) 
+  *PHP:* [`api/requests_offers/readRequestUser.php`](api/requests_offers/readRequestUser.php) in Kombination mit [`api/requests_offers/readOfferAll.php`](api/requests_offers/readOfferAll.php)
+  
+  Datenbankeintrag für Match (nur neue Matches):
+  [`api/matches_activities/createMatch.php`](api/matches_activities/createMatch.php)
 
-- Erstelle eine neue FTP Verbindung mit dem SFTP Plugin gemäss [Anleitung im MMP 101](https://github.com/Interaktive-Medien/101-MMP/blob/main/resources/sftp.md).
+- **Antworten & Status:**  
+  Nutzer:innen können Matches annehmen oder ablehnen. Statusänderungen werden gespeichert.  
+  *JS:* [`js/offers-available.js`](js/offers-available.js), [`js/requests-available.js`](js/requests-available.js)
+  *PHP:* [`api/matches_activities/updateMatch.php`](api/matches_activities/updateMatch.php)
 
-# 📁 Struktur
+---
 
-## 🎨 Frontend
+### 5. Aktivitätenübersicht
 
-### root (Basis-Verzeichnis)
+- **Letzte Aktivitäten:**  
+  Auf der Startseite werden die letzten Matches und deren Status angezeigt.  
+  *HTML:* [`home.html`](home.html)  
+  *JS:* [`js/home.js`](js/home.js)  
+  *PHP:* [`api/matches_activities/readActivity.php`](api/matches_activities/readActivity.php)
 
-- beinhaltet alle HTML-Dateien des Frontends.
-- beinhaltet die `.gitignore` Datei, welche die Dateien und Verzeichnisse ausblendet, die nicht auf GitHub hochgeladen werden sollen.
+---
 
-### js
+## Datenbankstruktur
 
-- beinhaltet alle JavaScript-Dateien des Frontends.
+- Nutzerverwaltung:
+  `users` (E-Mail und gehashtes PW), `user_profiles` (Vor-und Nachname)
+- Anfragen & Angebote:  
+  `requests_offers`
+- Matches & Aktivitäten:  
+  `matches_activities`
 
-### css
+Siehe [system/db.sql](system/db.sql) für das Grundschema.
 
-- beinhaltet alle CSS-Dateien des Frontends.
+---
 
-## 🤖 Backend
+## Weitere Hinweise
 
-### api
+- **Frontend:** HTML/CSS, Vanilla JS  
+- **Backend:** PHP (REST-API), MySQL  
+- **Session-Handling:** PHP-Session  
+- **Dynamische Navigation:** Footer wird per JS geladen ([`js/footer.js`](js/footer.js))
 
-- Beinhaltet alle API-Endpunkte des Backends.
-- Diese Dateien werden von `JavaScript` aufgerufen und geben eine Antwort an `JavaScript` zurück.
+---
 
-### system
+## Beispielablauf
 
-- Beinhaltet die Konfigurationsdatei für die Datenbankverbindung.
-- Beinhaltet die Datei `database.sql`, die die `users` Tabelle erstellt.
-- Beinhaltet die Datei `config.php`, die die Konfiguration des Backends enthält.
+1. Nutzer:in registriert sich und loggt ein.
+2. Stellt eine Anfrage oder bietet Begleitung an.
+3. System sucht passende Matches.
+4. Beide Seiten können das Match annehmen oder ablehnen.
+5. Aktivitäten werden im Dashboard angezeigt.
+
+---
+
+## Weiterentwicklung
+
+- Kontaktverwaltung (in Planung)
+- Benachrichtigungen
+- Verbesserte Validierung und Fehlerbehandlung
+
+---
+
+**Demo:**  
+Starte mit [`index.html`](index.html) und folge dem Login-Prozess.
