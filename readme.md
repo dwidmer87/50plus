@@ -114,7 +114,7 @@ Siehe [system/db.sql](system/db.sql) für das Grundschema.
 ---
 
 ## Weiterentwicklung
-Diese WebApp stellt die Grundfunktionen für Matches zur Verfügung und dient sozusagen als Basis für eine spätere Vollfunktion. Dabei sollen folgende Funktionen integriert werden:
+Diese WebApp stellt die Grundfunktionen für Matches zur Verfügung und dient sozusagen als Basis für eine spätere Vollfunktion. In diese sollen folgende Funktionen integriert werden:
 
 - Registrierung und Passwort vergessen:
 Ein neues Konto kann nur via verifizierte E-Mail angelegt werden. Dafür wird vollautomatisch ein Verification-PIN an die angegebene Adresse geschickt. Dasselbe bei vergessenem Passwort.
@@ -125,6 +125,11 @@ Matches entstehen nur zu verifizierten Kontakten. Nur eine Person, die via Verif
 - Benachrichtigungen: Gibt es ein neues Angebot auf eine Begleitanfrage, wird der betreffende User benachrichtigt.
 
 ---
+
+## Learnings
+Die Entwicklung der WebApp "Sicher-Hei+" war ein spannender, intensiver Prozess, bei dem ich Einiges lernen durfte. Ich nehme mit:
+- CRUD-Bausteine: Ein PHP für "Delete" kam zwar nicht zum Einsatz, die anderen drei dafür gleich in unterschiedlichen Varianten. Erst im Entwicklungsprozess wurde mir klar, dass es beispielsweise für die Datenbank "requests_offers" verschiedene "Reads" braucht, in meinem Fall readOfferAll.php, readOfferUser.php, readRequestAll.php und readRequestUser.php.
+- Arbeit mit ChatGPT und Copilot: Die KI-Tool waren entscheidend, dass ich das Projekt finalisieren konnte. Ich habe penibel darauf geachtet, mein Anliegen oder eine gewünschte Funktion jeweils so detailliert wie möglich zu schildern, um damit einen Code zu erhalten, der das macht, was er soll. Häufig waren noch ein paar Zusatzschlaufen nötig, bei denen Bugs bereinigt wurden, aber am Ende hatte ich einen funktionierenden Code. Mir war dabei wichtig, den Code zu verstehen und ich liess mir Zeilen, bei denen dies nicht der Fall war, von der KI erklären. Etwas Interessantes konnte ich bei der Arbeit an offer.js und request.js feststellen: Obwohl die beiden Scripts plusminus dasselbe machen baute sie die KI komplett anders auf. Zwecks Wartbarkeit brachte ich die beiden Scripts deshalb im Nachhinien noch in einen analogen Aufbau.
 
 **Demo:**  
 Starte mit [`index.html`](index.html) und folge dem Login-Prozess.
