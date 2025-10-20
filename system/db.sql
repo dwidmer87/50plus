@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `user_profiles` (
   `first_name` VARCHAR(100) DEFAULT NULL,
   `last_name` VARCHAR(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   UNIQUE KEY (`user_id`)
 );
 
@@ -53,4 +53,17 @@ CREATE TABLE IF NOT EXISTS `matches_activities`(
   FOREIGN KEY (`id_protected`) REFERENCES `user_profiles`(`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   FOREIGN KEY (`id_protector`) REFERENCES `user_profiles`(`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   FOREIGN KEY (`id_request`) REFERENCES `requests_offers`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+CREATE TABLE IF NOT EXISTS `contacts` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `id_protector` INT DEFAULT NULL,
+  `id_protected` INT DEFAULT NULL,
+  `verification_code` CHAR(6) DEFAULT NULL,
+  `validated` TINYINT(1) DEFAULT 0,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id_protector`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`id_protected`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
