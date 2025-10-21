@@ -14,12 +14,12 @@ try {
     // Erste Abfrage: Protectors (Personen, die mich begleiten)
     $stmt = $pdo->prepare("
         SELECT 
-            co.id_protector,
+            c.id_protector,
             up.first_name,
             up.last_name
-        FROM contacts co
-        LEFT JOIN user_profiles up ON up.user_id = co.id_protector
-        WHERE co.id_protected = :user_id AND co.validated = 1
+        FROM contacts c
+        LEFT JOIN user_profiles up ON up.user_id = c.id_protector
+        WHERE c.id_protected = :user_id AND c.validated = 1
     ");
     $stmt->execute([':user_id' => $_SESSION['user_id']]);
     $protector_contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -33,12 +33,12 @@ try {
     // Zweite Abfrage: Protected (Personen, die ich begleite)
     $stmt = $pdo->prepare("
         SELECT 
-            co.id_protected,
+            c.id_protected,
             up.first_name,
             up.last_name
-        FROM contacts co
-        LEFT JOIN user_profiles up ON up.user_id = co.id_protected
-        WHERE co.id_protector = :user_id AND co.validated = 1
+        FROM contacts c
+        LEFT JOIN user_profiles up ON up.user_id = c.id_protected
+        WHERE c.id_protector = :user_id AND c.validated = 1
     ");
     $stmt->execute([':user_id' => $_SESSION['user_id']]);
     $protected_contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);

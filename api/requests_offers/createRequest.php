@@ -41,7 +41,6 @@ try {
             place,
             destination,
             transport,
-            status,
             compensation_accepted,
             created_at
         ) VALUES (
@@ -52,7 +51,6 @@ try {
             :place,
             :destination,
             :transport,
-            'open',
             :compensation_accepted,
             NOW()
         )

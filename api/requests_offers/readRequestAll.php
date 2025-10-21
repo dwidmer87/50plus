@@ -25,10 +25,13 @@ try {
             up.last_name
         FROM requests_offers ro
         LEFT JOIN user_profiles up ON ro.id_protected = up.user_id
+        INNER JOIN contacts c ON c.id_protected = ro.id_protected
         WHERE ro.type = 'request'
+        AND c.id_protector = :user_id
+        AND c.validated = 1
     ");
 
-    $stmt->execute();
+    $stmt->execute([':user_id' => $_SESSION['user_id']]);
     $requests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     if (!$requests) {

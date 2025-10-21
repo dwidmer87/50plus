@@ -23,9 +23,12 @@ $verificationCode = $input['verification_code'];
 
 try {
     //____________________________________________________________
-    // 1. Prüfen, ob Code existiert und noch ungenutzt ist
+    // 1. Prüfen, ob Code existiert, gültig und noch ungenutzt ist
     //____________________________________________________________
-    $stmt = $pdo->prepare("SELECT id FROM contacts WHERE verification_code = :code AND id_protector IS NULL");
+    $stmt = $pdo->prepare("SELECT id FROM contacts 
+    WHERE verification_code = :code
+    AND id_protector IS NULL
+    AND created_at >= (NOW() - INTERVAL 48 HOUR)");
     $stmt->execute([':code' => $verificationCode]);
     $contact = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -37,7 +40,10 @@ try {
     //____________________________________________________________
     // 2. Protector eintragen und validieren
     //____________________________________________________________
-    $stmt = $pdo->prepare("UPDATE contacts SET id_protector = :protector, validated = 1 WHERE verification_code = :code");
+    $stmt = $pdo->prepare("UPDATE contacts SET id_protector = :protector, validated = 1
+    WHERE verification_code = :code
+    AND id_protector IS NULL
+    AND created_at >= (NOW() - INTERVAL 48 HOUR)");
     $stmt->execute([
         ':protector' => $userId,
         ':code' => $verificationCode

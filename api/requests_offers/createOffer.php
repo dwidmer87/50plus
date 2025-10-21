@@ -50,7 +50,6 @@ try {
             date_time_end,
             place,
             transport,
-            status,
             compensation_required,
             compensation_details,
             created_at
@@ -61,7 +60,6 @@ try {
             :date_time_end,
             :place,
             :transport,
-            'open',
             :compensation_required,
             :compensation_details,
             NOW()
