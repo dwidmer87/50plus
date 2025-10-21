@@ -1,5 +1,4 @@
--- db.sql
--- Create the database and the users table
+-- User (Email und Passwort)
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -8,6 +7,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY (`email`)
 );
+
+-- User-Profile (Vorname und Nachname)
 
 CREATE TABLE IF NOT EXISTS `user_profiles` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -18,6 +19,8 @@ CREATE TABLE IF NOT EXISTS `user_profiles` (
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   UNIQUE KEY (`user_id`)
 );
+
+-- Anfragen und Angebote
 
 CREATE TABLE IF NOT EXISTS `requests_offers` (
   `id` INT NOT NULL AUTO_INCREMENT,
@@ -39,6 +42,8 @@ CREATE TABLE IF NOT EXISTS `requests_offers` (
   FOREIGN KEY (`id_protector`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
 );
 
+-- Matches und Aktivitäten
+
 CREATE TABLE IF NOT EXISTS `matches_activities`(
   `id` INT NOT NULL AUTO_INCREMENT,
   `id_protected` INT NOT NULL,
@@ -55,6 +60,8 @@ CREATE TABLE IF NOT EXISTS `matches_activities`(
   FOREIGN KEY (`id_request`) REFERENCES `requests_offers`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
 
+-- Kontakte und Verifizierungen
+
 CREATE TABLE IF NOT EXISTS `contacts` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `id_protector` INT DEFAULT NULL,
@@ -66,4 +73,19 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`id_protector`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`id_protected`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- E-Mail-Verifikationen
+
+CREATE TABLE IF NOT EXISTS `email_verifications` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `email` VARCHAR(255) NOT NULL,
+  `token` VARCHAR(128) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `expires_at` DATETIME NOT NULL,
+  `used` TINYINT(1) DEFAULT 0,
+  `ip_address` VARCHAR(45),
+  `user_agent` VARCHAR(255),
+  INDEX (`email`),
+  INDEX (`token`)
 );

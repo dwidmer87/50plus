@@ -3,8 +3,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require_once __DIR__ . '/../system/config.php';
-
-// KORREKTE PFADANGABEN:
 require_once __DIR__ . '/../system/PHPMailer/src/Exception.php';
 require_once __DIR__ . '/../system/PHPMailer/src/PHPMailer.php';
 require_once __DIR__ . '/../system/PHPMailer/src/SMTP.php';
