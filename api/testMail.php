@@ -2,6 +2,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require_once __DIR__ . '/../system/config.php';
+
 // KORREKTE PFADANGABEN:
 require_once __DIR__ . '/../system/PHPMailer/src/Exception.php';
 require_once __DIR__ . '/../system/PHPMailer/src/PHPMailer.php';
@@ -14,8 +16,8 @@ try {
     $mail->isSMTP();
     $mail->Host       = 'mail.infomaniak.com';
     $mail->SMTPAuth   = true;
-    $mail->Username   = 'im4@dw-services.ch';
-    $mail->Password   = 'IM4Te5tm@il';
+    $mail->Username = SMTP_USER;
+    $mail->Password = SMTP_PASS;
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
     $mail->Port       = 587;
 
