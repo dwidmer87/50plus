@@ -20,7 +20,7 @@ try {
     $mail->Port       = 587;
 
     // Absender + Empfänger
-    $mail->setFrom('im4@dw-services.ch', 'David Widmer');
+    $mail->setFrom('im4@dw-services.ch', 'Sicher-Hei+ - Vertraut begleitet');
     $mail->addAddress('d_widmer@outlook.com', 'David Widmer');
 
     // Inhalt
