@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sicher-Hei+ Registrierung</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/style_unverified.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style_unverified.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -13,23 +13,22 @@
   
 <body>
   <div class="welcome_icon">
-    <img src="img/icon_new_user.svg" alt="neuer User">
+    <img src="../img/icon_new_user.svg" alt="neuer User">
   </div>
     
   <div class="title_container">
       <h2>Grüezi!</h2>
-      <p>Bitte füllen Sie das Registrationsformular aus.</p>
+      <p>Bitte geben Sie Ihre E-Mail-Adresse ein.</p>
     </div>
 
-    <div class="register_container">
-        <h2>Registrieren</h2>
+    <form class="form_container">
         <input type="email" id="register_email" placeholder="E-Mail-Adresse" />
-        <button id="register_submit">Registrierungslink senden</button>
-    </div>
+        <button type="submit" id="register_submit">Registrierungslink senden</button>
+    </form>
 
     <div class="redirect_registration">
         <p>Sie haben schon ein Konto?</p>
-        <a href="login.html">Zum Login!</a>
+        <a href="../login.html">Zum Login!</a>
     </div>
 
     <script src="register.js"></script>

@@ -70,10 +70,10 @@ require_once '../../system/PHPMailer/src/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$verifyUrl = "https://im4.dw-services.ch/register/confirm.html?token=" . urlencode($token);
+$verifyUrl = "https://im4.dw-services.ch/registration/confirm.html?token=" . urlencode($token);
 
 // 🔹 HTML-Template laden
-$templatePath = __DIR__ . '/templates/registration-mail.html';
+$templatePath = __DIR__ . '/../../registration/templates/registration-mail.html';
 if (!file_exists($templatePath)) {
     http_response_code(500);
     echo json_encode(["error" => "E-Mail-Template nicht gefunden"]);

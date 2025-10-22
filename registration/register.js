@@ -1,4 +1,5 @@
-document.getElementById("register_submit").addEventListener("click", async () => {
+document.getElementById("register_submit").addEventListener("click", async (e) => {
+  e.preventDefault();
   const email = document.getElementById("register_email").value.trim();
   if (!email) return alert("Bitte E-Mail eingeben.");
 
@@ -19,9 +20,4 @@ document.getElementById("register_submit").addEventListener("click", async () =>
     alert("Serverfehler.");
     console.error(err);
   }
-});
-
-document.getElementById('popup_close_btn').addEventListener('click', function(e) {
-    e.preventDefault(); // Verhindert die Standard-Link-Aktion
-    document.getElementById('popup_registration').style.display = 'none';
 });
