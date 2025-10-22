@@ -20,3 +20,8 @@ document.getElementById("register_submit").addEventListener("click", async () =>
     console.error(err);
   }
 });
+
+document.getElementById('popup_close_btn').addEventListener('click', function(e) {
+    e.preventDefault(); // Verhindert die Standard-Link-Aktion
+    document.getElementById('popup_registration').style.display = 'none';
+});

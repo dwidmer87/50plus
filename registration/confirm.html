@@ -15,23 +15,25 @@
   <div class="welcome_icon">
     <img src="img/icon_new_user.svg" alt="neuer User">
   </div>
-    
-  <div class="title_container">
-      <h2>Grüezi!</h2>
-      <p>Bitte füllen Sie das Registrationsformular aus.</p>
-    </div>
 
-    <div class="register_container">
-    <h2>Registrieren</h2>
-    <input type="email" id="register_email" placeholder="E-Mail-Adresse" />
-    <button id="register_submit">Registrierungslink senden</button>
+  <form id="registerForm">
+    <div>
+      <input type="text" id="fullname" placeholder="Vor- und Nachname" required>
     </div>
+    <div>
+      <input type="password" id="password" placeholder="Passwort wählen" required>
+    </div>
+    <div>
+      <input type="password" id="password_repeat" placeholder="Passwort wiederholen" required>
+    </div>
+      <button type="submit">Konto erstellen &#10132;</button>
+    </form>
 
     <div class="redirect_registration">
      <p>Sie haben schon ein Konto?</p>
      <a href="login.html">Zum Login!</a>
     </div>
 
-    <script src="js/register1.js"></script>
+    <script src="confirm.js"></script>
   </body>
 </html>
