@@ -19,12 +19,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     protectorsContainer.innerHTML = uniqueProtectors.length
       ? uniqueProtectors.map(c => `<p>${c.name}</p>`).join("")
-      : "<p><em>Keine Begleitpersonen gefunden.</em></p>";
+      : "<p><em>Aktuell keine Personen</em></p>";
     
     protectedContainer.innerHTML = uniqueProtected.length
       ? uniqueProtected.map(c => `<p>${c.name}</p>`).join("")
-      : "<p><em>Niemanden in Begleitung.</em></p>";
-    
+      : "<p><em>Aktuell keine Personen</em></p>";
+
   } catch (err) {
     console.error("Fehler beim Laden:", err);
     alert("Technischer Fehler beim Laden der Kontakte.");

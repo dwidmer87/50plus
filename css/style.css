@@ -78,9 +78,56 @@ h4 {
   color: var(--link-blue);
 }
 
+.contact_container{
+  background-color: var(--bg-grey);
+  width: 500px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  padding: 5px 20px;
+  margin: 20px auto;
+}
+
+@media screen and (max-width: 600px) {
+  .contact_container{
+    width: 90vw;
+  }
+}
+
 /* _______________________________________________________________ */
 /* home.html */
 /* _______________________________________________________________ */
+
+.btn_add_contact {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--orange);
+  width: 500px;
+  height: auto;
+  border-radius: 20px;
+  margin: 20px auto;
+  color: white;
+  text-decoration: none;
+  align-items: center;
+  padding: 20px 0;
+  gap: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .btn_add_contact {
+    width: 90vw;
+  }
+}
+
+.btn_add_contact:hover {
+  background-color: var(--title-blue);
+}
+
+.btn_add_contact span {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: white;
+}
 
 .btn_request_offer {
   display: flex;
