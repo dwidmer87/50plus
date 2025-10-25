@@ -11,16 +11,27 @@
 </head>
  
 <body>
+  <div class="page_title">
+    <h3>zu begleitende Person hinzufügen</h3>
+  </div>
 
-    <div class="title_container">
-      <h2>Verifizierungscode eingeben</h2>
-      <p>Geben Sie hier den 6-stelligen Verifizierungscode an:</p>
-        <div class="verification_code_input_container">
-          <input type="text" id="verification_code_input" maxlength="6" placeholder="XXXXXX" />
-          <button id="submit_verification_code_button">Bestätigen</button>
-        </div>
-    </div>
+  <p class="verification_info">Bitte geben Sie hier den 6-stelligen PIN-Code ein:</p>
 
-    <script src="js/add-protected.js"></script>
+  <div class="pin-input-container" id="pinContainer">
+    <input type="text" maxlength="1" inputmode="numeric" class="pin-input" />
+    <input type="text" maxlength="1" inputmode="numeric" class="pin-input" />
+    <input type="text" maxlength="1" inputmode="numeric" class="pin-input" />
+    <input type="text" maxlength="1" inputmode="numeric" class="pin-input" />
+    <input type="text" maxlength="1" inputmode="numeric" class="pin-input" />
+    <input type="text" maxlength="1" inputmode="numeric" class="pin-input" />
+  </div>
+
+  <button id="submit_verification_code_button">Code übermitteln</button>
+
+  <div class="empty_bottom"></div>
+  <footer></footer>
+
+  <script src="js/footer.js"></script>
+  <script src="js/add-protected.js"></script>
   </body>
 </html>
