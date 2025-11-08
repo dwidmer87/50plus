@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (result.success) {
             alert("Registrierung erfolgreich! Sie können sich jetzt einloggen.");
-            window.location.href = "login.html";
+            window.location.href = "../login.html";
         } else {
             alert(result.error || "Fehler bei der Registrierung.");
         }

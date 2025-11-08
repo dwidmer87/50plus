@@ -89,3 +89,29 @@ CREATE TABLE IF NOT EXISTS `email_verifications` (
   INDEX (`email`),
   INDEX (`token`)
 );
+
+-- Trashmail-Domains
+
+CREATE TABLE IF NOT EXISTS `trashmail_domains` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `trashdomain` VARCHAR(255) NOT NULL,
+  UNIQUE KEY (`trashdomain`)
+);
+
+-- Passwort-Zurücksetzungen
+CREATE TABLE IF NOT EXISTS `password_resets` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `token` VARCHAR(255) NOT NULL,
+  `expires_at` DATETIME NOT NULL,
+  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `used_at` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `idx_user_id` (`user_id`),
+  INDEX `idx_token` (`token`),
+  CONSTRAINT `fk_password_resets_user`
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);

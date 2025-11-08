@@ -26,7 +26,7 @@ if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 //__________________________________________________________
 $stmt = $pdo->prepare("
     SELECT created_at 
-    FROM email_verifications 
+    FROM password_resets
     WHERE email = :email 
     ORDER BY created_at DESC 
     LIMIT 1
@@ -47,11 +47,27 @@ if ($last && strtotime($last['created_at']) > strtotime('-5 minutes')) {
 $token = bin2hex(random_bytes(32)); // sicherer 64-stelliger Token
 $expires = date('Y-m-d H:i:s', strtotime('+24 hours'));
 
+// User-ID anhand der E-Mail ermitteln
+$stmt = $pdo->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
+$stmt->execute([':email' => $email]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$user) {
+    http_response_code(404);
+    echo json_encode(["error" => "Kein Benutzer mit dieser E-Mail-Adresse gefunden."]);
+    exit;
+}
+
+$user_id = $user['id'];
+
+
 $stmt = $pdo->prepare("
-    INSERT INTO email_verifications (email, token, expires_at, ip_address, user_agent)
-    VALUES (:email, :token, :expires_at, :ip, :ua)
+    INSERT INTO password_resets (user_id, email, token, expires_at, ip_address, user_agent)
+    VALUES (:user_id, :email, :token, :expires_at, :ip, :ua)
 ");
+
 $stmt->execute([
+    ':user_id' => $user_id,
     ':email' => $email,
     ':token' => $token,
     ':expires_at' => $expires,
@@ -70,10 +86,10 @@ require_once '../../system/PHPMailer/src/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$verifyUrl = "https://im4.dw-services.ch/registration/confirm.html?token=" . urlencode($token);
+$verifyUrl = "https://im4.dw-services.ch/passwordreset/newpassword.html?token=" . urlencode($token);
 
 // 🔹 HTML-Template laden
-$templatePath = __DIR__ . '/../../registration/templates/registration-mail.html';
+$templatePath = __DIR__ . '/../../passwordreset/templates/passwordreset-mail.html';
 if (!file_exists($templatePath)) {
     http_response_code(500);
     echo json_encode(["error" => "E-Mail-Template nicht gefunden"]);
@@ -81,11 +97,11 @@ if (!file_exists($templatePath)) {
 }
 
 $htmlBody = file_get_contents($templatePath);
-$htmlBody = str_replace('{{VERIFICATION_LINK}}', htmlspecialchars($verifyUrl, ENT_QUOTES, 'UTF-8'), $htmlBody);
+$htmlBody = str_replace('{{RESET_LINK}}', htmlspecialchars($verifyUrl, ENT_QUOTES, 'UTF-8'), $htmlBody);
 
 // 🔹 Fallback Textversion
 $plainText = "Hallo!\n\n"
-    . "Bitte bestätigen Sie Ihre Registrierung, indem Sie auf den folgenden Link klicken:\n"
+    . "Unter folgendem Link können Sie Ihr Passwort zurücksetzen:\n"
     . "$verifyUrl\n\n"
     . "Dieser Link ist 24 Stunden gültig.\n\n"
     . "Freundliche Grüsse\nIhr Team von Sicher-Hei+";
@@ -108,7 +124,7 @@ try {
     $mail->addAddress($email);
 
     $mail->isHTML(true);
-    $mail->Subject = 'Bestätigung Ihrer Registrierung bei Sicher-Hei+';
+    $mail->Subject = 'Zurücksetzen Ihres Passworts';
     $mail->Body = $htmlBody;
     $mail->AltBody = $plainText;
 
