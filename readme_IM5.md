@@ -31,7 +31,7 @@
 ### 3. verifizierte Kontakte
 
   - **Kontakte hinzufügen und einsehen:**
-  Die User erstellen sich eine Kontaktliste und unterscheiden dabei, von welchen Personen sie begleitet werden und für welche sie als Begleiter:innen in Frage kommen. Der "Contact-Adding-Prozess" wird immer von der Person gestartet, die sich begleiten lassen will. Dafür lässt sie einen 6-stelligen Code generieren, den sie auf ihrem bevorzugten Weg ihrer neuen Begleitperson ("protector") zukommen lässt. Diese wiederum verifiziert sich mit dem korrekten Code als neue Begleitung. Auf der persönlichen Kontaktseite ist ersichtlich, wen die User begleiten und von wem sie begleitet werden.
+  Die User erstellen sich eine Kontaktliste und unterscheiden dabei, von welchen Personen sie begleitet werden und für welche sie als Begleiter:innen in Frage kommen. Der "Contact-Adding-Prozess" wird immer von der Person gestartet, die sich begleiten lassen will. Dafür lässt sie einen 6-stelligen Code generieren, den sie auf ihrem bevorzugten Weg ihrer neuen Begleitperson ("protector") zukommen lässt. Diese wiederum verifiziert sich mit dem korrekten Code als neue Begleitung. Auf der persönlichen Kontaktseite ist ersichtlich, wen die User begleiten und von wem sie begleitet werden. `--> Kontakt löschen noch beschreiben`
   *HTML:* [`contact.html`] / [`add-contact.html`] / [`newcontact.html`] / [`add-protector.html`] / [`add-protected.html`]
   *JS:* [`js/contact.js`] / [`js/add-protector.js`] / [`js/add-protected.js`]
   *PHP:* [api/contacts/createContact.php] / [api/contacts/readContact.php] / [api/contacts/updateContact.php]
@@ -40,8 +40,16 @@
   Der Matching-Prozess aus der Basisversion erfuhr ein Update: Neu können sich nur noch gegenseitig verifizierte Personen begleiten (gemäss obenstehender Logik). Dafür wurde der Matching eingeschränkt. Die PHP-Files "readOfferAll.php" und "readRequestAll.php" sind nun strenggenommen falsch benannt, da sie nicht mehr ALLE Angebote, bzw. Anfragen lesen, sondern nur noch jene von verifizierten Kontakten. Dies wurde mittels eines "INNER JOINs" erreicht.
   *PHP:* [api/requests_offers/readOfferAll.php] --> Zeilen 14-31 / [api/requests_offers/readRequestAll.php] --> Zeilen 14-32
 
+### 4. Aufsetzen als "Quasi-App" mittels Vanilla JS
+
 ## Learnings
-tbd
+Die Weiterentwicklung der WebApp "Sicher-Hei+" war ein spannender, intensiver Prozess, bei dem ich Einiges lernen durfte. Ich nehme mit:
+
+  - **automatisierter Mailversand:**
+  Styling nur inline möglich, Outlook-Wahnsinn
+
+  - **Update Matching-Prozess:**
+  wenige Zeilen genügen
 
 **Demo:**  
 Starte mit [`index.html`](index.html) und folge dem Login-Prozess.
