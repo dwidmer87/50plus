@@ -44,8 +44,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Popup-Logik
 //____________________________________________________________
 
-function openContactPopup({ id, name, type, contactSince }) {
-  const updated_at = contactSince || null;
+function openContactPopup({ id, name, type, updatedAt }) {
+  const updated_at = updatedAt || null;
   const popup = document.getElementById("contact-popup");
   if (!popup) return;
 

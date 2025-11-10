@@ -8,11 +8,11 @@ async function logout() {
       window.location.href = 'logout.html';
     } else {
       console.error("Logout failed");
-      alert("Logout failed. Please try again.");
+      alert("Logout fehlgeschlagen. Versuchen Sie es erneut.");
     }
   } catch (error) {
     console.error("Logout error:", error);
-    alert("Something went wrong during logout!");
+    alert("Während des Logout-Vorgangs ist ein Fehler aufgetreten!");
   }
 }
 

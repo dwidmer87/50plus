@@ -97,7 +97,7 @@ const dateEndFormatted = formatLocalDateTime(dateEndObj);
       const result = await response.json();
 
       if (result.success) {
-        alert("Ihre Anfrage wurde erfolgreich gespeichert.");
+        alert("Ihr Anfrage wurde erfolgreich gespeichert.");
         form.reset();
         window.location.href = "offers-available.html";
       } else {
