@@ -14,12 +14,11 @@ $userId = $_SESSION['user_id'];
 
 try {
 
-    $input = json_decode(file_get_contents('php://input'), true);
-    $contactId = $input['contact_id'] ?? null;
-    
+    $contactId = isset($_POST['id_protected']) ? $_POST['id_protected'] : null;
+
     if (!$contactId) {
         http_response_code(400);
-        echo json_encode(["error" => "Bad Request: Missing contact_id"]);
+        echo json_encode(["error" => "Bad Request: Missing id_protected"]);
         exit;
     }
 

@@ -72,9 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch {
         throw new Error("Keine gültige JSON-Antwort vom Server");
       }
+      console.log("Parsed Result:", result);
 
       if (result.success) {
-        alert("Verifizierung erfolgreich! Sie wurden als Begleitperson hinzugefügt.");
+        const name = result.protected_name || "der begleiteten Person";
+        alert(`Verifizierung erfolgreich! Sie wurden als Begleitperson für ${name} hinzugefügt.`);
         inputs.forEach(i => i.value = "");
         inputs[0].focus();
         window.location.href = "contact.html";

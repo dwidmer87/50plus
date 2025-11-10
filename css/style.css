@@ -691,6 +691,10 @@ footer ul li a span {
   margin-top:30px;
 }
 
+.popup-close{
+  cursor:pointer;
+}
+
 /* Ergänzung: allgemeines Kontakt-Popup sichtbar machen */
 #contact-popup {
   display: none;

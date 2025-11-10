@@ -19,11 +19,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Listen erzeugen
     protectorsContainer.innerHTML = uniqueProtectors.length
-      ? uniqueProtectors.map(c => `<p class="contact-item" data-type="protector" data-id="${c.id_protector}" data-name="${c.name}">${c.name}</p>`).join("")
+      ? uniqueProtectors.map(c => `<p class="contact-item" data-type="protector" data-id="${c.id_protector}" data-name="${c.name}" data-updated-at="${c.updated_at}">${c.name}</p>`).join("")
       : "<p><em>Aktuell keine Personen</em></p>";
 
     protectedContainer.innerHTML = uniqueProtected.length
-      ? uniqueProtected.map(c => `<p class="contact-item" data-type="protected" data-id="${c.id_protected}" data-name="${c.name}">${c.name}</p>`).join("")
+      ? uniqueProtected.map(c => `<p class="contact-item" data-type="protected" data-id="${c.id_protected}" data-name="${c.name}" data-updated-at="${c.updated_at}">${c.name}</p>`).join("")
       : "<p><em>Aktuell keine Personen</em></p>";
 
     // Klick auf Kontakt
@@ -44,16 +44,28 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Popup-Logik
 //____________________________________________________________
 
-function openContactPopup({ id, name, type }) {
+function openContactPopup({ id, name, type, contactSince }) {
+  const updated_at = contactSince || null;
   const popup = document.getElementById("contact-popup");
   if (!popup) return;
+
+  // Datum lesbar formatieren (z. B. "12. Oktober 2024")
+  let sinceText = "– keine Angabe –";
+  if (updated_at) {
+    const date = new Date(updated_at);
+    sinceText = date.toLocaleDateString("de-CH", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+      });
+    }
 
   // Inhalt einsetzen
   popup.innerHTML = `
     <div class="popup-content">
       <span class="popup-close">&times;</span>
       <h3>${name}</h3>
-      <p><strong>Kontakt seit:</strong> <span id="contactSince">– wird ergänzt –</span></p>
+      <p><strong>Kontakt besteht seit:</strong> <span id="contactSince">${sinceText}</span></p>
       <button id="delete-contact-btn" class="delete-btn">Kontakt löschen</button>
     </div>
   `;
@@ -78,7 +90,13 @@ function openContactPopup({ id, name, type }) {
         : "/api/contacts/deleteProtectedContact.php";
 
       const formData = new FormData();
-      formData.append("contact_id", id);
+      if (type === "protector") {
+        formData.append("id_protector", String(id));
+      } else {
+        formData.append("id_protected", String(id));
+      }
+
+      console.log("Lösche Kontakt mit ID:", id, "Typ:", type);
 
       const response = await fetch(url, {
         method: "POST",

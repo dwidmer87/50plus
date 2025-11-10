@@ -15,6 +15,7 @@ try {
     $stmt = $pdo->prepare("
         SELECT 
             c.id_protector,
+            c.updated_at,
             up.first_name,
             up.last_name
         FROM contacts c
@@ -34,6 +35,7 @@ try {
     $stmt = $pdo->prepare("
         SELECT 
             c.id_protected,
+            c.updated_at,
             up.first_name,
             up.last_name
         FROM contacts c

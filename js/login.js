@@ -14,7 +14,6 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const result = await response.json();
 
     if (result.status === "success") {
-      alert("Login erfolgreich!");
       window.location.href = "home.html";
     } else {
       alert(result.message || "Login nicht erfolgreich. Bitte überprüfen Sie Ihre Anmeldedaten.");
