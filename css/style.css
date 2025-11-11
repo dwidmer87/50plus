@@ -7,6 +7,7 @@
   --link-blue:#656A92;
   --orange:#EE5719;
   --bg-grey:#E0E0E0;
+  --bg-grey-rgb: 230, 230, 230;
   --text-black:#1E1E1E;
   --text-grey:#4F4F4F;
 }
@@ -83,7 +84,7 @@ h4 {
   width: 500px;
   box-sizing: border-box;
   border-radius: 5px;
-  padding: 5px 20px;
+  padding: 1px 20px;
   margin: 20px auto;
 }
 
@@ -330,8 +331,15 @@ form{
     margin: 0 auto;
     width: 100%;
     box-sizing: border-box;
-    background-color: var(--bg-grey);
+    backdrop-filter: blur(10px);
     padding: 0 0 20px 0;
+    background: linear-gradient(
+    to bottom,
+    rgba(var(--bg-grey-rgb), 0) 0%,         /* oben transparent */
+    rgba(var(--bg-grey-rgb), 1) 10%,        /* sanfter Übergang */
+    rgba(var(--bg-grey-rgb), 1) 90%,        /* Mitte voll deckend */
+    rgba(var(--bg-grey-rgb), 0) 100%        /* unten wieder transparent */
+  );
 }
 
 form div{
@@ -459,10 +467,16 @@ input {
 
 input[type="datetime-local"] {
   position: relative;
-  padding-right: 40px; /* Platz für das Icon schaffen */
+  padding-right: 40px;
   background: white url("data:image/svg+xml,%3Csvg fill='none' height='20' width='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23656A92' stroke-width='2' d='M3 5h14M16 5v12H4V5m2-3v4m8-4v4M5 9h10'/%3E%3C/svg%3E") no-repeat right 10px center;
   background-size: 20px;
   cursor: pointer;
+
+
+   /* Empfohlene, klare Werte für Cross-Browser */
+  -webkit-appearance: none; /* entfernt WebKit-Default UI (Chrome/Android, Safari) */
+  -moz-appearance: none;    /* Firefox */
+  appearance: none;         /* Standard */
 }
 
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {
@@ -472,6 +486,24 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
   right: 10px;
   width: 20px;
   height: 20px;
+  z-index: 3;
+}
+
+/* Pfeil in Chrome/Android verstecken */
+input[type="datetime-local"]::-webkit-inner-spin-button,
+input[type="datetime-local"]::-webkit-clear-button {
+  display: none;
+}
+
+/* Dropdown-Pfeil bei Firefox entfernen */
+input[type="datetime-local"]::-moz-focus-inner {
+  border: 0;
+}
+
+/* Struktur-Fix für Android (verhindert doppelten Dropdown-Pfeil) */
+input[type="datetime-local"]::-webkit-datetime-edit-fields-wrapper {
+  position: relative;
+  z-index: 2;
 }
 
 /* _______________________________________________________________ */
